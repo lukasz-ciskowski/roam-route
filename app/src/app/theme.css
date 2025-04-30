@@ -61,3 +61,7 @@
     --mat-sys-inverse-secondary: #9fd3a9;
     --mat-sys-inverse-tertiary: #87cff8;
 }
+
+.mdc-notched-outline__notch {
+    border-right: 0 !important;
+}

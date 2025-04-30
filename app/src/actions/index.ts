@@ -6,10 +6,14 @@ import { travelAssistantService } from '../services/travel-assistant.service';
 export const server = {
     fillInAssistantData: defineAction({
         input: astroZ.object({
-            prompt: astroZ.string(),
+            questions: astroZ.array(astroZ.string()),
+            answers: astroZ.array(astroZ.string()),
         }),
         handler: async (input) => {
-            return await travelAssistantService.fillInAssistantData(input.prompt);
+            return await travelAssistantService.fillInAssistantData({
+                questions: input.questions,
+                answers: input.answers,
+            });
         },
     }),
 };

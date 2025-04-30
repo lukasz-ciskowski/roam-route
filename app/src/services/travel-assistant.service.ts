@@ -1,7 +1,7 @@
 import { gemini15Flash, googleAI } from '@genkit-ai/googleai';
 import { genkit } from 'genkit';
 import { z } from 'genkit';
-import { promises as fs } from 'fs';
+import fs from 'fs';
 import path from 'path';
 const __dirname = path.resolve();
 
@@ -17,16 +17,35 @@ const ai = genkit({
 const TravelAssistResultSchema = z.object({
     nextQuestion: z.string(),
     ready: z.boolean(),
-    allAnswers: z.string().optional(),
+    summary: z
+        .object({
+            questions: z.array(z.string()).optional(),
+            correctAnswers: z.array(z.string()).optional(),
+        })
+        .optional(),
 });
 
+const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');
+
 export class TravelAssistantService {
-    async fillInAssistantData(prompt: string) {
+    async fillInAssistantData({ questions, answers }: { questions: string[]; answers: string[] }) {
+        if (!Array.isArray(questions) || !Array.isArray(answers)) {
+            console.error('Invalid input: questions and answers must be arrays');
+            throw new Error('Invalid input');
+        }
+        let contextString = `
+            <questions>
+                ${questions.join('\n')}
+            </questions>
+            <answers>
+                ${answers.join('\n')}
+            </answers>
+        `;
+
         try {
-            const systemPrompt = await fs.readFile(__dirname + '/src/contexts/travel-assist.context.txt', 'utf-8');
             const { output } = await ai.generate({
-                prompt,
-                system: systemPrompt,
+                prompt: contextString || 'start',
+                system: travelAssistantPrompt,
                 output: { schema: TravelAssistResultSchema },
                 config: {
                     temperature: 0,
@@ -34,10 +53,11 @@ export class TravelAssistantService {
                     topK: 1,
                 },
             });
+            console.log('🚀 ~ TravelAssistantService ~ questions:', output);
             return output;
         } catch (err) {
-            console.error('Failed to read system prompt:', err);
-            throw new Error('Internal error: unable to load system prompt');
+            console.error('Failed to process travel assistant data:', err);
+            throw new Error('Internal error: unable to process travel assistant data');
         }
     }
 }
