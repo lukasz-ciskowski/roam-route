@@ -10,16 +10,24 @@ Tourists visiting new cities often have limited time and face difficulties plann
 
 ## 3. Functional Requirements
 
-1. Generate an optimized sightseeing route based on user input (city, available time, starting point, preferences, mode of travel).
-2. Display the route on an interactive map with attraction markers.
-3. Provide a Google Maps link with the generated route.
-4. Allow saving the route for logged-in users (login via Firebase).
-5. Limit to one generated route per user per day.
-6. Additional text field for user preferences regarding attractions.
-7. English language support.
-8. Store user email address for login and route saving purposes.
-9. Limit AI model query costs to $2 per month.
-10. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
+1. When a user enters the website and reaches the chat screen, they are welcomed by the AI chat, which immediately starts the conversation.
+2. The AI chat initially asks the following questions:
+   - What is your travel destination?
+   - Where do you start your travel?
+   - Do you want to get back to your starting location?
+   - How much time do you want to spend sightseeing?
+   - How do you want to move between the monuments?
+   - Is there any monument that you really want to visit?
+3. Generate an optimized sightseeing route based on user input (city, available time, starting point, preferences, mode of travel).
+4. Display the route on an interactive map with attraction markers.
+5. Provide a Google Maps link with the generated route.
+6. Allow saving the route for logged-in users (login via Firebase).
+7. Limit to one generated route per user per day.
+8. Additional text field for user preferences regarding attractions.
+9. English language support.
+10. Store user email address for login and route saving purposes.
+11. Limit AI model query costs to $2 per month.
+12. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
 
 ## 4. Product Boundaries
 

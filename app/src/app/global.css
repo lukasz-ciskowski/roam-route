@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import '@angular/material/prebuilt-themes/rose-red.css';
 
 @theme {
     /* Brand colors */

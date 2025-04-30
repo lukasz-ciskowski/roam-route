@@ -1,14 +1,13 @@
 # Tech stack
 
-## Frontend - Astro and Angular (Analogjs) for interactive components
+## Frontend - Astro and Angular (Analogjs)
 - Astro 5
 - Angular 19 (Analogjs) with signals
 - Typescript 5
 - Tailwind 4
-- Angular Material UI components
+- Angular Material components
 
-
-## Backend - Firebase for complex backend system
+## Backend - Firebase
 - Fiebase Auth
 - Firestore Database
 - Genkit for AI prompting

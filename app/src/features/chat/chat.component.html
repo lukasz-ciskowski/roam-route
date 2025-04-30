@@ -1,0 +1,29 @@
+<div class="flex flex-col h-full p-4">
+    <div class="flex-1 overflow-y-auto mb-4 p-4">
+        <mat-card
+            *ngFor="let message of messages()"
+            class="mb-1 w-fit max-w-[60%] !bg-primary/80 !border-primary/90 text-white whitespace-pre-line"
+            [ngClass]="{ 'text-right justify-self-end': message.sender === 'user' }"
+            appearance="outlined"
+        >
+            <mat-card-content>{{ message.text }}</mat-card-content>
+        </mat-card>
+
+        <mat-card
+            class="mb-1 w-fit max-w-[60%] !bg-primary/80 !border-primary/90 text-white"
+            appearance="outlined"
+            *ngIf="isLoading()"
+        >
+            <mat-card-content>
+                <mat-spinner diameter="20"></mat-spinner>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <form (submit)="sendMessage($event)" class="flex items-center gap-2">
+        <mat-form-field class="flex-1" appearance="fill">
+            <mat-label>Type your message...</mat-label>
+            <input matInput [(ngModel)]="userInput" name="input" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="p-2" type="submit">Send</button>
+    </form>
+</div>

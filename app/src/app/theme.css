@@ -1,0 +1,63 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+/* These tokens are generated using https://themes.angular-material.dev/ */
+/* Preview: https://themes.angular-material.dev/?seed-error=%23ba1a1a&seed-neutral=%23717971&seed-neutral-variant=%236d7b6e&seed-primary=%2351DA84&seed-secondary=%23396846&seed-tertiary=%2300668a */
+/* Seed Colors: primary: #51DA84, secondary: #396846, tertiary: #00668a, error: #ba1a1a, neutral: #717971, neutral-variant: #6d7b6e */
+
+:root,
+:host {
+    --mat-sys-primary: #006d38;
+    --mat-sys-on-primary: #ffffff;
+    --mat-sys-primary-container: #75fca2;
+    --mat-sys-on-primary-container: #00210d;
+    --mat-sys-inverse-primary: #57df89;
+    --mat-sys-primary-fixed: #75fca2;
+    --mat-sys-primary-fixed-dim: #57df89;
+    --mat-sys-on-primary-fixed: #00210d;
+    --mat-sys-on-primary-fixed-variant: #005229;
+    --mat-sys-secondary: #396846;
+    --mat-sys-on-secondary: #ffffff;
+    --mat-sys-secondary-container: #bbefc4;
+    --mat-sys-on-secondary-container: #00210d;
+    --mat-sys-secondary-fixed: #bbefc4;
+    --mat-sys-secondary-fixed-dim: #9fd3a9;
+    --mat-sys-on-secondary-fixed: #00210d;
+    --mat-sys-on-secondary-fixed-variant: #215030;
+    --mat-sys-tertiary: #00668a;
+    --mat-sys-on-tertiary: #ffffff;
+    --mat-sys-tertiary-container: #c3e8ff;
+    --mat-sys-on-tertiary-container: #001e2c;
+    --mat-sys-tertiary-fixed: #c3e8ff;
+    --mat-sys-tertiary-fixed-dim: #87cff8;
+    --mat-sys-on-tertiary-fixed: #001e2c;
+    --mat-sys-on-tertiary-fixed-variant: #004c68;
+    --mat-sys-background: #fcf9f7;
+    --mat-sys-on-background: #1b1c1b;
+    --mat-sys-surface: #fcf9f7;
+    --mat-sys-surface-dim: #dcd9d8;
+    --mat-sys-surface-bright: #fcf9f7;
+    --mat-sys-surface-container-lowest: #ffffff;
+    --mat-sys-surface-container-low: #f6f3f1;
+    --mat-sys-surface-container: #f0edec;
+    --mat-sys-surface-container-high: #eae8e6;
+    --mat-sys-surface-container-highest: #e5e2e0;
+    --mat-sys-on-surface: #1b1c1b;
+    --mat-sys-shadow: #000000;
+    --mat-sys-scrim: #000000;
+    --mat-sys-surface-tint: #586059;
+    --mat-sys-inverse-surface: #31302f;
+    --mat-sys-inverse-on-surface: #f3f0ee;
+    --mat-sys-outline: #747873;
+    --mat-sys-outline-variant: #c4c8c1;
+    --mat-sys-neutral: #787776;
+    --mat-sys-neutral10: #1b1c1b;
+    --mat-sys-error: #ba1a1a;
+    --mat-sys-error-container: #ffdad6;
+    --mat-sys-on-error: #ffffff;
+    --mat-sys-on-error-container: #410002;
+    --mat-sys-surface-variant: #e0e4dd;
+    --mat-sys-on-surface-variant: #434843;
+    --mat-sys-neutral-variant: #747872;
+    --mat-sys-neutral-variant20: #2d322d;
+    --mat-sys-inverse-secondary: #9fd3a9;
+    --mat-sys-inverse-tertiary: #87cff8;
+}
