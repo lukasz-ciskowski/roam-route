@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { actions } from 'astro:actions';
 import { MatIconModule } from '@angular/material/icon';
+import { MapComponent } from '../map/map.component';
+import type { MarkersResponse } from '../map/types';
 
 type ChatMessage = {
     sender: 'user' | 'ai';
@@ -29,6 +31,7 @@ type ChatMessage = {
         MatButtonModule,
         MatProgressSpinnerModule,
         MatIconModule,
+        MapComponent,
     ],
 })
 export class ChatComponent {
@@ -37,27 +40,32 @@ export class ChatComponent {
             sender: 'ai',
             text: 'Welcome! \nIm your ZippyJourney Assistant 🏝️.\n\n I will ask you some questions to help you plan your next amazing journey!',
         },
-        // {
-        //     sender: 'user',
-        //     text: 'Hi! I am ready to start planning my trip.',
-        // },
     ];
     messages = signal<Array<ChatMessage>>([]);
     userInput = '';
     isLoading = signal(false);
+    markersSuggestions = signal<MarkersResponse | null>(null);
 
     allMessages = computed(() => {
         return [...this.welcomeMessages, ...this.messages()];
     });
 
+    constructor() {
+        effect(() => {
+            // Trigger the scroll when messages signal changes
+            this.messages();
+            // Use setTimeout to ensure DOM is updated before scrolling
+            setTimeout(() => this._scrollToBottom(), 0);
+        });
+    }
+
     ngOnInit() {
-        if (!import.meta.env.SSR) {
-            this._fillInAssistantData();
-        }
+        this._fillInAssistantData();
     }
 
     sendMessage(event: Event) {
         event.preventDefault();
+
         if (!this.userInput.trim()) return;
 
         this.messages.update((msgs) => [...msgs, { sender: 'user', text: this.userInput }]);
@@ -82,11 +90,13 @@ export class ChatComponent {
             .then((response) => {
                 this.isLoading.set(false);
                 if (response && response.data) {
-                    const { nextQuestion, ready, summary } = response.data;
-                    if (nextQuestion && !ready) {
+                    const { nextQuestion, readyToShowMarkers, markersSuggestions } = response.data;
+                    if (nextQuestion) {
                         this.messages.update((msgs) => [...msgs, { sender: 'ai', text: nextQuestion }]);
                     }
-                    console.log('🚀 ~ TravelAssistantService ~ questions:', summary);
+                    if (readyToShowMarkers && markersSuggestions) {
+                        this.markersSuggestions.set({ markers: markersSuggestions });
+                    }
                 } else {
                     this.messages.update((msgs) => [
                         ...msgs,
@@ -94,5 +104,12 @@ export class ChatComponent {
                     ]);
                 }
             });
+    }
+
+    private _scrollToBottom() {
+        const chatContainer = document.querySelector('#chat-container');
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
     }
 }

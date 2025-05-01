@@ -1,4 +1,4 @@
-import { gemini15Flash, googleAI } from '@genkit-ai/googleai';
+import { gemini15Flash, googleAI, gemini25ProExp0325 } from '@genkit-ai/googleai';
 import { genkit } from 'genkit';
 import { z } from 'genkit';
 import fs from 'fs';
@@ -11,28 +11,31 @@ const ai = genkit({
             apiKey: import.meta.env.GOOGLE_GENAI_API_KEY,
         }),
     ],
+    // model: gemini25ProExp0325,
     model: gemini15Flash,
 });
 
 const TravelAssistResultSchema = z.object({
     nextQuestion: z.string(),
-    ready: z.boolean(),
-    summary: z
-        .object({
-            questions: z.array(z.string()).optional(),
-            correctAnswers: z.array(z.string()).optional(),
-        })
+    readyToShowMarkers: z.boolean(),
+    markersSuggestions: z
+        .array(
+            z.object({
+                lat: z.number(),
+                lng: z.number(),
+                name: z.string(),
+            }),
+        )
         .optional(),
 });
 
-const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');
-
 export class TravelAssistantService {
     async fillInAssistantData({ questions, answers }: { questions: string[]; answers: string[] }) {
-        if (!Array.isArray(questions) || !Array.isArray(answers)) {
-            console.error('Invalid input: questions and answers must be arrays');
-            throw new Error('Invalid input');
-        }
+        const travelAssistantPrompt = fs.readFileSync(
+            path.join(__dirname, 'src/contexts/travel-assist.context.txt'),
+            'utf-8',
+        );
+
         let contextString = `
             <questions>
                 ${questions.join('\n')}
@@ -53,10 +56,9 @@ export class TravelAssistantService {
                     topK: 1,
                 },
             });
-            console.log('🚀 ~ TravelAssistantService ~ questions:', output);
+            console.log('🚀 ~ TravelAssistantService ~ fillInAssistantData ~ output:', output);
             return output;
         } catch (err) {
-            console.error('Failed to process travel assistant data:', err);
             throw new Error('Internal error: unable to process travel assistant data');
         }
     }

@@ -13,11 +13,15 @@ Tourists visiting new cities often have limited time and face difficulties plann
 1. When a user enters the website and reaches the chat screen, they are welcomed by the AI chat, which immediately starts the conversation.
 2. The AI chat initially asks the following questions:
    - What is your travel destination?
-   - Where do you start your travel?
-   - Do you want to get back to your starting location?
    - How much time do you want to spend sightseeing?
-   - How do you want to move between the monuments?
-   - Is there any monument that you really want to visit?
+
+   **Chat Extension:**
+   - After the AI suggests 5 places to visit based on the initial answers, the chat remains open for further conversation.
+   - The user can provide extra context or requests (e.g., add a vegan restaurant, specific type of attraction, etc.).
+   - The AI can ask clarifying questions if needed before suggesting additional locations.
+   - The AI can add up to 3 more locations (for a total of 10 markers).
+   - After each new suggestion, the AI summarizes all locations added so far and asks if the user wants to add more or proceed.
+
 3. Generate an optimized sightseeing route based on user input (city, available time, starting point, preferences, mode of travel).
 4. Display the route on an interactive map with attraction markers.
 5. Provide a Google Maps link with the generated route.
@@ -26,8 +30,7 @@ Tourists visiting new cities often have limited time and face difficulties plann
 8. Additional text field for user preferences regarding attractions.
 9. English language support.
 10. Store user email address for login and route saving purposes.
-11. Limit AI model query costs to $2 per month.
-12. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
+11. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
 
 ## 4. Product Boundaries
 

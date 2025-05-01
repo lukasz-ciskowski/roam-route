@@ -6,6 +6,7 @@
 - Typescript 5
 - Tailwind 4
 - Angular Material components
+- Leaflet for maps
 
 ## Backend - Firebase
 - Fiebase Auth
