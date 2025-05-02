@@ -44,11 +44,13 @@ export class MapComponent {
         });
     }
 
-    ngOnInit(): void {}
-
-    ngAfterViewInit() {
+    ngOnInit(): void {
         this.initMap();
     }
+
+    // ngAfterViewInit() {
+    //     this.initMap();
+    // }
 
     private initMap() {
         const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';

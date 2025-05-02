@@ -1,0 +1,4 @@
+@if (markersSuggestions()) {
+<map-component [markersSuggestion]="markersSuggestions()"></map-component>
+}
+<chat-component (markersUpdate)="updateMarkers($event)" class="flex-1 overflow-hidden"></chat-component>

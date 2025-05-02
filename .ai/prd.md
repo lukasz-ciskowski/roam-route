@@ -1,8 +1,8 @@
-# Product Requirements Document (PRD) - ZippyJourney
+# Product Requirements Document (PRD) - RoamRoute
 
 ## 1. Product Overview
 
-ZippyJourney is a desktop web application designed to help international tourists plan one-day trips in new cities. The MVP enables users to quickly generate an optimized sightseeing route based on a few questions, displays the route on an interactive map, and allows users to save the route after logging in. The application uses Google Places API to select attractions and generates a Google Maps link for easy navigation.
+RoamRoute is a desktop web application designed to help international tourists plan one-day trips in new cities. The MVP enables users to quickly generate an optimized sightseeing route based on a few questions, displays the route on an interactive map, and allows users to save the route after logging in. The application uses Google Places API to select attractions and generates a Google Maps link for easy navigation.
 
 ## 2. User Problem
 

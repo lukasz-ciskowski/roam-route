@@ -1,6 +1,6 @@
 # AI Rules for Zippy Journey
 
-ZippyJourney is a web application that helps international tourists quickly generate optimized one-day sightseeing routes in new cities. Users answer a few questions, and the app creates a personalized walking tour, displaying it on an interactive map with a shareable Google Maps link. The platform leverages AI and Google Places data to ensure the most valuable attractions are included within the user's available time.
+RoamRoute is a web application that helps international tourists quickly generate optimized one-day sightseeing routes in new cities. Users answer a few questions, and the app creates a personalized walking tour, displaying it on an interactive map with a shareable Google Maps link. The platform leverages AI and Google Places data to ensure the most valuable attractions are included within the user's available time.
 
 ## Tech Stack
 

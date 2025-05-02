@@ -24,3 +24,7 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+
+.leaflet-container {
+    z-index: 0;
+}

@@ -1,13 +1,13 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import { IntroComponent } from '../features/intro/intro.component';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { HomeComponent } from '../features/home/home.component';
 ---
 
 <Layout>
-	<!-- <Welcome /> -->
-    <IntroComponent />
+    <main class="flex flex-col items-center justify-center mx-auto w-full h-full overflow-hidden">
+        <img src="/logo.png" alt="RoamRoute Logo" width="80px" height="115px" />
+        <h1 class="text-[2em]">Welcome to <span class="text-primary font-bold">RoamRoute!</span></h1>
+        <h3 class="text-lg mb-10">The place to plan your adventures</h3>
+        <HomeComponent client:load />
+    </main>
 </Layout>

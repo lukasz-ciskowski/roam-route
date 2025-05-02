@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -35,16 +35,17 @@ type ChatMessage = {
     ],
 })
 export class ChatComponent {
+    @Output() markersUpdate = new EventEmitter<MarkersResponse>();
+
     welcomeMessages: ChatMessage[] = [
         {
             sender: 'ai',
-            text: 'Welcome! \nIm your ZippyJourney Assistant 🏝️.\n\n I will ask you some questions to help you plan your next amazing journey!',
+            text: 'Welcome! \nIm your RoamRoute Assistant 🏝️.\n\n I will ask you some questions to help you plan your next amazing journey!',
         },
     ];
     messages = signal<Array<ChatMessage>>([]);
     userInput = '';
     isLoading = signal(false);
-    markersSuggestions = signal<MarkersResponse | null>(null);
 
     allMessages = computed(() => {
         return [...this.welcomeMessages, ...this.messages()];
@@ -95,7 +96,7 @@ export class ChatComponent {
                         this.messages.update((msgs) => [...msgs, { sender: 'ai', text: nextQuestion }]);
                     }
                     if (readyToShowMarkers && markersSuggestions) {
-                        this.markersSuggestions.set({ markers: markersSuggestions });
+                        this.markersUpdate.emit({ markers: markersSuggestions });
                     }
                 } else {
                     this.messages.update((msgs) => [

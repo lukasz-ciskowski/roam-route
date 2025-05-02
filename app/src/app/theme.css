@@ -3,63 +3,75 @@
 /* Preview: https://themes.angular-material.dev/?seed-error=%23ba1a1a&seed-neutral=%23717971&seed-neutral-variant=%236d7b6e&seed-primary=%2351DA84&seed-secondary=%23396846&seed-tertiary=%2300668a */
 /* Seed Colors: primary: #51DA84, secondary: #396846, tertiary: #00668a, error: #ba1a1a, neutral: #717971, neutral-variant: #6d7b6e */
 
+/* Light Theme */
 :root,
 :host {
-    --mat-sys-primary: #006d38;
+    --mat-sys-primary: #0061a5;
     --mat-sys-on-primary: #ffffff;
-    --mat-sys-primary-container: #75fca2;
-    --mat-sys-on-primary-container: #00210d;
-    --mat-sys-inverse-primary: #57df89;
-    --mat-sys-primary-fixed: #75fca2;
-    --mat-sys-primary-fixed-dim: #57df89;
-    --mat-sys-on-primary-fixed: #00210d;
-    --mat-sys-on-primary-fixed-variant: #005229;
-    --mat-sys-secondary: #396846;
+    --mat-sys-primary-container: #d2e4ff;
+    --mat-sys-on-primary-container: #001c37;
+    --mat-sys-inverse-primary: #a0caff;
+    --mat-sys-primary-fixed: #d2e4ff;
+    --mat-sys-primary-fixed-dim: #a0caff;
+    --mat-sys-on-primary-fixed: #001c37;
+    --mat-sys-on-primary-fixed-variant: #00497e;
+    --mat-sys-secondary: #9f4200;
     --mat-sys-on-secondary: #ffffff;
-    --mat-sys-secondary-container: #bbefc4;
-    --mat-sys-on-secondary-container: #00210d;
-    --mat-sys-secondary-fixed: #bbefc4;
-    --mat-sys-secondary-fixed-dim: #9fd3a9;
-    --mat-sys-on-secondary-fixed: #00210d;
-    --mat-sys-on-secondary-fixed-variant: #215030;
-    --mat-sys-tertiary: #00668a;
+    --mat-sys-secondary-container: #ffdbcb;
+    --mat-sys-on-secondary-container: #341100;
+    --mat-sys-secondary-fixed: #ffdbcb;
+    --mat-sys-secondary-fixed-dim: #ffb692;
+    --mat-sys-on-secondary-fixed: #341100;
+    --mat-sys-on-secondary-fixed-variant: #7a3000;
+    --mat-sys-tertiary: #4a5d90;
     --mat-sys-on-tertiary: #ffffff;
-    --mat-sys-tertiary-container: #c3e8ff;
-    --mat-sys-on-tertiary-container: #001e2c;
-    --mat-sys-tertiary-fixed: #c3e8ff;
-    --mat-sys-tertiary-fixed-dim: #87cff8;
-    --mat-sys-on-tertiary-fixed: #001e2c;
-    --mat-sys-on-tertiary-fixed-variant: #004c68;
-    --mat-sys-background: #fcf9f7;
-    --mat-sys-on-background: #1b1c1b;
-    --mat-sys-surface: #fcf9f7;
-    --mat-sys-surface-dim: #dcd9d8;
-    --mat-sys-surface-bright: #fcf9f7;
+    --mat-sys-tertiary-container: #dae2ff;
+    --mat-sys-on-tertiary-container: #001848;
+    --mat-sys-tertiary-fixed: #dae2ff;
+    --mat-sys-tertiary-fixed-dim: #b2c5ff;
+    --mat-sys-on-tertiary-fixed: #001848;
+    --mat-sys-on-tertiary-fixed-variant: #324577;
+    --mat-sys-background: #fcf8f8;
+    --mat-sys-on-background: #1c1b1c;
+    --mat-sys-surface: #fcf8f8;
+    --mat-sys-surface-dim: #dcd9d9;
+    --mat-sys-surface-bright: #fcf8f8;
     --mat-sys-surface-container-lowest: #ffffff;
-    --mat-sys-surface-container-low: #f6f3f1;
-    --mat-sys-surface-container: #f0edec;
-    --mat-sys-surface-container-high: #eae8e6;
-    --mat-sys-surface-container-highest: #e5e2e0;
-    --mat-sys-on-surface: #1b1c1b;
+    --mat-sys-surface-container-low: #f6f3f3;
+    --mat-sys-surface-container: #f0eded;
+    --mat-sys-surface-container-high: #ebe7e7;
+    --mat-sys-surface-container-highest: #e5e2e2;
+    --mat-sys-on-surface: #1c1b1c;
     --mat-sys-shadow: #000000;
     --mat-sys-scrim: #000000;
-    --mat-sys-surface-tint: #586059;
-    --mat-sys-inverse-surface: #31302f;
-    --mat-sys-inverse-on-surface: #f3f0ee;
-    --mat-sys-outline: #747873;
-    --mat-sys-outline-variant: #c4c8c1;
-    --mat-sys-neutral: #787776;
-    --mat-sys-neutral10: #1b1c1b;
+    --mat-sys-surface-tint: #5b5e64;
+    --mat-sys-inverse-surface: #313030;
+    --mat-sys-inverse-on-surface: #f3f0f0;
+    --mat-sys-outline: #75777b;
+    --mat-sys-outline-variant: #c5c6cb;
+    --mat-sys-neutral: #797777;
+    --mat-sys-neutral10: #1c1b1c;
     --mat-sys-error: #ba1a1a;
     --mat-sys-error-container: #ffdad6;
     --mat-sys-on-error: #ffffff;
     --mat-sys-on-error-container: #410002;
-    --mat-sys-surface-variant: #e0e4dd;
-    --mat-sys-on-surface-variant: #434843;
-    --mat-sys-neutral-variant: #747872;
-    --mat-sys-neutral-variant20: #2d322d;
-    --mat-sys-inverse-secondary: #9fd3a9;
-    --mat-sys-inverse-tertiary: #87cff8;
+    --mat-sys-surface-variant: #e2e2e8;
+    --mat-sys-on-surface-variant: #45474b;
+    --mat-sys-neutral-variant: #75777c;
+    --mat-sys-neutral-variant20: #2e3035;
+    --mat-sys-inverse-secondary: #ffb692;
+    --mat-sys-inverse-tertiary: #b2c5ff;
+}
+
+/* Typography */
+:root,
+:host {
+    --mat-sys-brand-font-family: 'Poppins', sans-serif;
+    --mat-sys-plain-font-family: 'Poppins', sans-serif;
+    --mat-sys-title-large-font: 'Poppins', sans-serif;
+    --mat-sys-bold-font-weight: 700;
+    --mat-sys-medium-font-weight: 500;
+    --mat-sys-regular-font-weight: 400;
 }
 
 .mdc-notched-outline__notch {

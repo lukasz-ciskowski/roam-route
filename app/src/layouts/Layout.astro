@@ -11,7 +11,7 @@ import '../app/theme.css';
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>Zippy Journey</title>
+        <title>RoamRoute</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link
             rel="stylesheet"
@@ -20,7 +20,13 @@ import '../app/theme.css';
             crossorigin=""
         />
     </head>
-    <body class="mat-typography">
+    <body class="flex flex-col h-screen mat-typography">
+        <header class="flex p-2 bg-white shadow-md z-20 sticky top-0">
+            <a href="/" class="flex items-center gap-2">
+                <img src="/logo.png" alt="Logo" width="30px" height="42px" />
+                <h1 class="text-2xl font-bold text-primary">RoamRoute</h1>
+            </a>
+        </header>
         <slot />
     </body>
 </html>

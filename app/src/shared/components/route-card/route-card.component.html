@@ -1,0 +1,7 @@
+<mat-card class="cursor-pointer hover:scale-105 transition-transform p-8 h-full !flex items-center justify-center">
+    <mat-icon [class]="'!text-[140px] !w-full !h-fit text-center ' + iconClass()">{{ icon() }}</mat-icon>
+    <mat-card-header class="!flex-col !items-center">
+        <mat-card-title class="!font-bold text-center">{{ title() }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mt-2 text-xs text-center">{{ description() }}</mat-card-content>
+</mat-card>
