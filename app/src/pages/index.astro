@@ -1,13 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { HomeComponent } from '../features/home/home.component';
+import Authorized from '../layouts/Authorized.layout.astro';
 ---
 
 <Layout>
-    <main class="flex flex-col items-center justify-center mx-auto w-full h-full overflow-hidden">
-        <img src="/logo.png" alt="RoamRoute Logo" width="80px" height="115px" />
-        <h1 class="text-[2em]">Welcome to <span class="text-primary font-bold">RoamRoute!</span></h1>
-        <h3 class="text-lg mb-10">The place to plan your adventures</h3>
-        <HomeComponent client:load />
-    </main>
+    <Authorized>
+        <main class="flex flex-col items-center justify-center mx-auto w-full h-full overflow-hidden">
+            <img src="/logo.png" alt="RoamRoute Logo" width="80px" height="115px" />
+            <h1 class="text-[2em]">Welcome to <span class="text-primary font-bold">RoamRoute!</span></h1>
+            <h3 class="text-lg mb-10">The place to plan your adventures</h3>
+            <HomeComponent client:load />
+        </main>
+    </Authorized>
 </Layout>

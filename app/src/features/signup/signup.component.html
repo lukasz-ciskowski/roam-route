@@ -1,0 +1,56 @@
+<div class="flex justify-center items-center min-h-screen">
+    <mat-card class="w-full max-w-md p-6">
+        <mat-card-header class="!mb-4">
+            <mat-card-title>Create Account</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            @if (errorMessage()) {
+            <div class="text-red-500 mb-4 text-center">{{ errorMessage() }}</div>
+            }
+            <button mat-stroked-button class="w-full mb-4" (click)="signUpWithGoogle()">
+                <img src="/google-icon.svg" alt="Google" class="w-6 h-6 mr-2 inline" />
+                Sign up with Google
+            </button>
+            <div class="flex items-center gap-4 mb-4">
+                <div class="h-px bg-gray-300 flex-1"></div>
+                <span class="text-gray-500 text-sm">or</span>
+                <div class="h-px bg-gray-300 flex-1"></div>
+            </div>
+            <form [formGroup]="signupForm" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email" required />
+                    @if (signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched) {
+                    <mat-error>Email is required</mat-error>
+                    } @if (signupForm.get('email')?.hasError('email')) {
+                    <mat-error>Please enter a valid email</mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password" required />
+                    @if (signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched) {
+                    <mat-error>Password is required</mat-error>
+                    } @if (signupForm.get('password')?.hasError('minlength')) {
+                    <mat-error>Password must be at least 6 characters</mat-error>
+                    } @if (signupForm.hasError('mismatch')) {
+                    <mat-error>Passwords do not match</mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" formControlName="confirmPassword" required />
+                    @if (signupForm.hasError('mismatch')) {
+                    <mat-error>Passwords do not match</mat-error>
+                    }
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid || isLoading()">
+                    @if (isLoading()) { Creating account... } @else { Create Account }
+                </button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="/signin" class="text-blue-600 hover:text-blue-800">Already have an account? Sign in</a>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

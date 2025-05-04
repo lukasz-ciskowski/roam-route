@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SigninComponent } from '../features/signin/signin.component';
+import Unauthorized from '../layouts/Unauthorized.layout.astro';
+---
+
+<Layout title="Sign In">
+    <Unauthorized>
+        <SigninComponent client:load />
+    </Unauthorized>
+</Layout>

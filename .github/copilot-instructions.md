@@ -60,7 +60,8 @@ The main project written in Astro code is inside `./app/src` subdirectory
 #### ANGULAR_CODING_STANDARDS
 
 - Use standalone components, directives, and pipes instead of NgModules
-- Always split up modules to component.ts, component.html.ts and component.css and import it
+- Always define template in separate html file
+- always use tailwind as a main provider to the styles
 - Implement signals for state management instead of traditional RxJS-based approaches
 - Use the new inject function instead of constructor injection
 - Implement control flow with @if, @for, and @switch instead of *ngIf, *ngFor, etc.
