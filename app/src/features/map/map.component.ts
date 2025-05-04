@@ -48,14 +48,16 @@ export class MapComponent {
         this.initMap();
     }
 
-    // ngAfterViewInit() {
-    //     this.initMap();
-    // }
-
     private initMap() {
-        const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const baseMapURl = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
         this.map = L.map('mapContainer').setView([0, 0], 2);
-        L.tileLayer(baseMapURl).addTo(this.map);
+        L.tileLayer(baseMapURl, {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20,
+        }).addTo(this.map);
+        this.map.attributionControl.setPrefix('');
     }
 
     private centerMap(markers: L.Marker[]) {

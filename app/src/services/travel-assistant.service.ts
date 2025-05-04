@@ -15,6 +15,8 @@ const ai = genkit({
     model: gemini15Flash,
 });
 
+const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');
+
 const TravelAssistResultSchema = z.object({
     nextQuestion: z.string(),
     readyToShowMarkers: z.boolean(),
@@ -31,11 +33,6 @@ const TravelAssistResultSchema = z.object({
 
 export class TravelAssistantService {
     async fillInAssistantData({ questions, answers }: { questions: string[]; answers: string[] }) {
-        const travelAssistantPrompt = fs.readFileSync(
-            path.join(__dirname, 'src/contexts/travel-assist.context.txt'),
-            'utf-8',
-        );
-
         let contextString = `
             <questions>
                 ${questions.join('\n')}
@@ -56,7 +53,6 @@ export class TravelAssistantService {
                     topK: 1,
                 },
             });
-            console.log('🚀 ~ TravelAssistantService ~ fillInAssistantData ~ output:', output);
             return output;
         } catch (err) {
             throw new Error('Internal error: unable to process travel assistant data');

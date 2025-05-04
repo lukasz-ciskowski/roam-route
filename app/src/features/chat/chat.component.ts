@@ -55,8 +55,8 @@ export class ChatComponent {
         effect(() => {
             // Trigger the scroll when messages signal changes
             this.messages();
-            // Use setTimeout to ensure DOM is updated before scrolling
-            setTimeout(() => this._scrollToBottom(), 0);
+            // Use setTimeout to ensure DOM is updated before scrolling, included map display
+            setTimeout(() => this._scrollToBottom(), 5);
         });
     }
 
