@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
 import { ChatComponent } from '../chat/chat.component';
 import type { MarkersResponse } from '../map/types';
+import { PlannerMapComponent } from './planner-map.component';
 
 @Component({
     selector: 'planner-component',
     standalone: true,
-    imports: [CommonModule, MapComponent, ChatComponent],
+    imports: [CommonModule, PlannerMapComponent, ChatComponent, PlannerMapComponent],
     templateUrl: './planner.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

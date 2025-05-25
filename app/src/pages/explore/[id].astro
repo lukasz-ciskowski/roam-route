@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { RouteDetailsComponent } from '../../features/explore/route-details.component';
+import { PlacesToVisitComponent } from '../../features/explore/places-to-visit.component';
+import { exploreService } from '../../services/explore.service';
+import Authorized from '../../layouts/Authorized.layout.astro';
+import { ExploreMapComponent } from '../../features/explore/explore-map.component';
+
+const { id } = Astro.params;
+if (!id) {
+    return Astro.redirect('/explore');
+}
+
+const route = await exploreService.retrieveSingleSharedRoute(id);
+
+if (!route) {
+    return Astro.redirect('/explore');
+}
+---
+
+<Layout title={`${route.city} | ${route.country} | RoamRoute`}>
+    <Authorized>
+        <div class="container mx-auto px-4 py-8 relative">
+            {/* @ts-ignore */}
+            <RouteDetailsComponent client:visible initialData={route} />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                {/* @ts-ignore */}
+                <PlacesToVisitComponent client:visible initialData={route} />
+                {/* @ts-ignore */}
+                <ExploreMapComponent client:only initialData={route} class="block absolute inset-0 z-50" />
+            </div>
+        </div>
+    </Authorized>
+</Layout>

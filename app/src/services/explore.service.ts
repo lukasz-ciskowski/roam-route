@@ -10,6 +10,8 @@ import {
     orderBy,
     getCountFromServer,
     updateDoc,
+    doc,
+    getDoc,
 } from 'firebase/firestore';
 import { app } from '../app/firebase/client';
 
@@ -85,6 +87,26 @@ export class ExploreService {
         } catch (err) {
             console.error('Error fetching shared routes:', err);
             throw new Error('Failed to fetch shared routes');
+        }
+    }
+
+    async retrieveSingleSharedRoute(id: string) {
+        try {
+            const routeRef = doc(this.db, 'shared-routes', id);
+            const routeSnapshot = await getDoc(routeRef);
+
+            if (!routeSnapshot.exists()) {
+                throw new Error('Route not found');
+            }
+
+            return {
+                id: routeSnapshot.id,
+                ...routeSnapshot.data(),
+                createdAt: routeSnapshot.data()?.createdAt.toDate(),
+            } as SharedRoute;
+        } catch (err) {
+            console.error('Error fetching shared route:', err);
+            throw new Error('Failed to fetch shared route');
         }
     }
 }

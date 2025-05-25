@@ -1,0 +1,14 @@
+<div class="relative w-full h-full">
+    <div [class]="isFullscreen() ? 'w-full h-full' : 'w-full h-[350px]'">
+        <map-component [markersResponse]="markersResponse()" />
+        <div class="absolute top-2 right-2 flex gap-2">
+            <button mat-mini-fab color="primary" (click)="toggleFullscreen()">
+                <mat-icon>{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
+            </button>
+            <button mat-fab extended color="primary" (click)="openShareModal()" class="!h-[40px]">
+                <mat-icon>share</mat-icon>
+                Share
+            </button>
+        </div>
+    </div>
+</div>

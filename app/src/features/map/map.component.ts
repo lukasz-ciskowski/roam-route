@@ -1,11 +1,9 @@
-import { Component, ChangeDetectionStrategy, input, computed, effect, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
 import type { MarkersResponse } from './types';
-import { ShareModalComponent } from './share-modal/share-modal.component';
 
 @Component({
     selector: 'map-component',
@@ -16,8 +14,6 @@ import { ShareModalComponent } from './share-modal/share-modal.component';
 })
 export class MapComponent {
     markersResponse = input<MarkersResponse>();
-    isFullscreen = input(false);
-    onFullscreenChange = output<void>();
 
     private map!: L.Map;
     private routePolyline: L.Polyline | null = null;
@@ -30,7 +26,7 @@ export class MapComponent {
         return [];
     });
 
-    constructor(private dialog: MatDialog) {
+    constructor() {
         effect(() => {
             const response = this.markersResponse();
             if (!response) return;
@@ -51,6 +47,13 @@ export class MapComponent {
 
     ngOnInit(): void {
         this.initMap();
+
+        const resizeObserver = new ResizeObserver(() => {
+            this.map.invalidateSize();
+        });
+
+        const mapDiv = document.getElementById('mapContainer');
+        resizeObserver.observe(mapDiv!);
     }
 
     private initMap() {
@@ -137,30 +140,5 @@ export class MapComponent {
         if (markers.length < 2) return;
         const latlngs = markers.map((m) => [m.lat, m.lng] as [number, number]);
         this.animateRoutePolyline(latlngs);
-    }
-
-    toggleFullscreen(): void {
-        this.onFullscreenChange.emit();
-
-        setTimeout(() => {
-            this.map.invalidateSize();
-        }, 0);
-    }
-
-    openShareModal(): void {
-        const dialogRef = this.dialog.open(ShareModalComponent, {
-            width: '500px',
-            panelClass: 'share-dialog',
-            data: {
-                response: this.markersResponse(),
-            },
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-                // Handle the save action here
-                console.log('Share data:', result);
-            }
-        });
     }
 }

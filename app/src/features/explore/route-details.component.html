@@ -1,0 +1,19 @@
+@if (initialData(); as route) {
+<div class="space-y-4">
+    @if (route.imageUrl) {
+    <div class="w-full">
+        <img [src]="route.imageUrl" [alt]="route.title" class="w-full h-[400px] object-cover rounded-lg shadow-lg" />
+    </div>
+    }
+
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold mb-2">{{ route.title }}</h1>
+        <p class="text-gray-600 mb-4">{{ route.description }}</p>
+        <div class="text-sm text-gray-500">
+            <p>{{ route.city }}, {{ route.country }}</p>
+            <p>Created by {{ route.createdBy.displayName }}</p>
+            <p>{{ route.createdAt | date : 'medium' }}</p>
+        </div>
+    </div>
+</div>
+}

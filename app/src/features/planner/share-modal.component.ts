@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
 import { actions } from 'astro:actions';
-import type { MarkersResponse } from '../types';
+import type { MarkersResponse } from '../map/types';
 
 interface ShareModalData {
     response: MarkersResponse;
@@ -50,7 +50,6 @@ export class ShareModalComponent {
             imageUrl: ['', [Validators.pattern('https?://.+')]],
         });
 
-        // Subscribe to imageUrl changes
         this.form.get('imageUrl')?.valueChanges.subscribe((url: string) => {
             if (url && this.form.get('imageUrl')?.valid) {
                 this.imageUrl.set(url);

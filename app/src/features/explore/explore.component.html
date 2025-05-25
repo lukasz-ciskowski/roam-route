@@ -21,7 +21,7 @@
         } @else {
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             @for (route of data().routes; track route.id) {
-            <a [href]="'/route/' + route.id" class="block">
+            <a [href]="'/explore/' + route.id" class="block">
                 <app-route-card
                     [icon]="'mode_of_travel'"
                     [iconClass]="'!text-primary'"

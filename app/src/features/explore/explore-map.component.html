@@ -1,0 +1,10 @@
+<div [class]="isFullscreen() ? 'w-full h-full absolute inset-0' : 'w-full h-[350px]'">
+    <div class="relative w-full h-full">
+        <map-component [markersResponse]="markersResponse()" />
+        <div class="absolute top-2 right-2">
+            <button mat-mini-fab color="primary" (click)="toggleFullscreen()">
+                <mat-icon>{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
