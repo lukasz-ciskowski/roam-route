@@ -15,6 +15,7 @@ RoamRoute will be an AI-powered travel assistant that simplifies trip planning b
 Based on the answers, the app will generate an optimized walking route that covers the most iconic monuments and attractions within the given timeframe.
 The route will be visualized on an interactive map, with markers highlighting each stop.
 Additionally, the app will provide an option to generate a shareable Google Maps link for easy navigation on the go.
+Users can choose to publish their generated routes, making them visible to other travelers in the 'explore' page. This creates a community-driven collection of verified and tested journeys that others can browse, evaluate, and use as inspiration for their own trips.
 
 ## Future Enhancements
 Once the optimal route is generated, RoamRoute could offer personalized add-ons, including food or coffee break suggestions:

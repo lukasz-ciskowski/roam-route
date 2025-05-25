@@ -6,8 +6,15 @@ import Authorized from '../layouts/Authorized.layout.astro';
 
 <Layout>
     <Authorized>
-        <main class="flex flex-col max-w-screen-xl mx-auto w-full h-full overflow-hidden">
+        <main class="flex flex-col max-w-screen-xl mx-auto w-full h-full overflow-hidden gap-4">
             <PlannerComponent client:only />
+            <section class="px-4 py-2">
+                <div class="prose prose-sm max-w-none">
+                    <div id="route-description" class="text-gray-600 italic">
+                        <!-- Description will be injected here by the PlannerComponent -->
+                    </div>
+                </div>
+            </section>
         </main>
     </Authorized>
 </Layout>

@@ -16,10 +16,13 @@ const ai = genkit({
 });
 
 const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');
+const shareRoutePrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/share-route.context.txt'), 'utf-8');
 
 const TravelAssistResultSchema = z.object({
     nextQuestion: z.string(),
     readyToShowMarkers: z.boolean(),
+    city: z.string().optional(),
+    country: z.string().optional(),
     markersSuggestions: z
         .array(
             z.object({
@@ -56,6 +59,35 @@ export class TravelAssistantService {
             return output;
         } catch (err) {
             throw new Error('Internal error: unable to process travel assistant data');
+        }
+    }
+
+    async generateRouteDescription({ city, country, places }: { city: string; country: string; places: string[] }) {
+        const contextString = `
+            <city>${city}</city>
+            <country>${country}</country>
+            <places>${places.join(', ')}</places>
+        `;
+
+        try {
+            const { output } = await ai.generate({
+                prompt: contextString,
+                system: shareRoutePrompt,
+                config: {
+                    temperature: 0,
+                    topP: 0,
+                    topK: 1,
+                },
+                output: {
+                    schema: z.object({
+                        description: z.string(),
+                    }),
+                },
+            });
+            return output?.description;
+        } catch (err) {
+            console.error('Error generating route description:', err);
+            throw new Error('Internal error: unable to generate route description');
         }
     }
 }

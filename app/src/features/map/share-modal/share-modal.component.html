@@ -1,0 +1,67 @@
+<div class="p-6">
+    <h2 class="text-xl font-bold mb-4">Share this route</h2>
+    @if (data.response.city && data.response.country) {
+    <p class="text-gray-600 mb-4">
+        Route in <span class="text-primary">{{ data.response.city }}, {{ data.response.country }}</span>
+    </p>
+    }
+
+    <form [formGroup]="form" class="flex flex-col gap-2">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="Enter title" />
+        </mat-form-field>
+
+        <div class="relative">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Enter description" rows="10"></textarea>
+                <button
+                    mat-icon-button
+                    type="button"
+                    class="!absolute right-[5px] top-[5px]"
+                    (click)="generateDescription()"
+                    [disabled]="isGenerating()"
+                    matTooltip="Auto-generate description"
+                    matTooltipPosition="above"
+                >
+                    @if (isGenerating()) {
+                    <mat-spinner diameter="20"></mat-spinner>
+                    } @else {
+                    <mat-icon>auto_awesome</mat-icon>
+                    }
+                </button>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Image URL (optional)</mat-label>
+            <input matInput formControlName="imageUrl" placeholder="https://example.com/image.jpg" />
+            <mat-error>Please enter a valid URL starting with http:// or https://</mat-error>
+        </mat-form-field>
+
+        @if (imageUrl()) {
+        <div class="relative border rounded-lg overflow-hidden">
+            <img [src]="imageUrl()" alt="Preview" class="w-full h-48 object-cover" />
+            <button
+                mat-icon-button
+                class="!absolute !top-2 !right-2 !bg-white"
+                (click)="removeImage()"
+                matTooltip="Remove image"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        } @if (errorMessage()) {
+        <div class="text-red-500 text-sm">{{ errorMessage() }}</div>
+        }
+
+        <div class="flex justify-end gap-2">
+            <button mat-button (click)="onCancel()" [disabled]="isSaving()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="onSave()" [disabled]="form.invalid || isSaving()">
+                @if (isSaving()) {
+                <mat-spinner diameter="20" class="mr-2"></mat-spinner>} @else { Save }
+            </button>
+        </div>
+    </form>
+</div>

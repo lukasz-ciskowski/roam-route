@@ -30,7 +30,9 @@ Tourists visiting new cities often have limited time and face difficulties plann
 8. Additional text field for user preferences regarding attractions.
 9. English language support.
 10. Store user email address for login and route saving purposes.
-11. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
+11. Allow users to publish their generated routes to make them publicly visible.
+12. Provide an 'explore' page where users can browse and view published routes from other travelers.
+13. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
 
 ## 4. Product Boundaries
 
@@ -103,11 +105,24 @@ Tourists visiting new cities often have limited time and face difficulties plann
   - The system blocks route generation after exceeding the monthly cost limit ($2).
   - The user receives a message about exceeding the limit.
 
+### US-008: Publish and explore routes
+- Title: Share routes with the community
+- Description: As a user, I want to publish my generated routes and explore routes created by others to find inspiration and verified travel plans.
+- Acceptance Criteria:
+  - Users can choose to publish their generated routes
+  - Published routes are visible on the 'explore' page
+  - The explore page shows basic route information (city, duration, number of stops)
+  - Users can browse and view published routes without logging in
+  - Published routes include the original route creator's username
+  - Users can unpublish their own routes
+
 ## 6. Success Metrics
 
 1. Number of routes generated daily and monthly.
 2. Number of routes saved by logged-in users.
-3. Number of unique users using the application.
-4. Keeping AI model query costs below $2 per month.
-5. Application stability and availability (no critical errors).
-6. Positive feedback from early users (e.g., satisfaction survey).
+3. Number of routes published and shared with the community.
+4. Number of unique users using the application.
+5. Average number of route views in the explore page.
+6. Keeping AI model query costs below $2 per month.
+7. Application stability and availability (no critical errors).
+8. Positive feedback from early users (e.g., satisfaction survey).

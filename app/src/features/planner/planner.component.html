@@ -1,4 +1,16 @@
-@if (markersSuggestions()) {
-<map-component [markersSuggestion]="markersSuggestions()"></map-component>
+@if (markersResponse()) {
+<map-component
+    [markersResponse]="markersResponse()"
+    [isFullscreen]="isFullscreen()"
+    (onFullscreenChange)="onFullscreenChange()"
+    [class]="isFullscreen() ? 'w-full h-full' : 'w-full h-min'"
+>
+</map-component>
+} @if (!isFullscreen()) {
+<chat-component
+    (onUpdateResponse)="onUpdateMarkersResponse($event)"
+    (onUpdateMessages)="updateMessages($event)"
+    class="flex-1 overflow-hidden"
+>
+</chat-component>
 }
-<chat-component (markersUpdate)="updateMarkers($event)" class="flex-1 overflow-hidden"></chat-component>

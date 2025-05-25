@@ -37,6 +37,8 @@ Respond with a JSON object containing these fields:
 - `nextQuestion`: the next question to ask, or 'Thank you' if all are answered and confirmed
 - `readyToShowMarkers`: true if all questions are answered and confirmed, otherwise false
 - 'markersSuggestions': an optional array of objects with lat, lng, and name properties (see below for details).
+- 'city': the user's travel destination, always in english
+- 'country': the country of the user's travel destination, always in english
 
 markersSuggestions format:
 - When all questions are answered and confirmed, use the user's destination and available time to generate a list of 5 suggested monuments or attractions (with lat, lng, and name) that the user would likely want to visit in that city.

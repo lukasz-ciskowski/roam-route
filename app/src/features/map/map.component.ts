@@ -1,45 +1,50 @@
-import { Component, ChangeDetectionStrategy, input, computed, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, effect, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
 import type { MarkersResponse } from './types';
+import { ShareModalComponent } from './share-modal/share-modal.component';
 
 @Component({
     selector: 'map-component',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, MatButtonModule, MatIconModule],
     templateUrl: './map.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent {
-    markersSuggestion = input<MarkersResponse>();
+    markersResponse = input<MarkersResponse>();
+    isFullscreen = input(false);
+    onFullscreenChange = output<void>();
 
     private map!: L.Map;
     private routePolyline: L.Polyline | null = null;
-    markers = computed(() => {
-        const markersSuggestion = this.markersSuggestion();
 
-        if (markersSuggestion) {
-            return (
-                markersSuggestion!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) ||
-                []
-            );
+    markers = computed(() => {
+        const response = this.markersResponse();
+        if (response) {
+            return response!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) || [];
         }
         return [];
     });
 
-    constructor() {
+    constructor(private dialog: MatDialog) {
         effect(() => {
-            const markersSuggestion = this.markersSuggestion();
-            if (!markersSuggestion) return;
+            const response = this.markersResponse();
+            if (!response) return;
 
             const markers =
-                markersSuggestion!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) ||
-                [];
+                response!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) || [];
 
             this.redefineMarkers(markers);
-            this.centerMap(markers);
             setTimeout(() => {
-                this.drawRoutePolyline(markersSuggestion.markers);
+                this.map.invalidateSize();
+                this.centerMap(markers);
+            }, 0);
+            setTimeout(() => {
+                this.drawRoutePolyline(response.markers);
             }, 1000);
         });
     }
@@ -58,6 +63,7 @@ export class MapComponent {
             maxZoom: 20,
         }).addTo(this.map);
         this.map.attributionControl.setPrefix('');
+        this.map.zoomControl.remove();
     }
 
     private centerMap(markers: L.Marker[]) {
@@ -131,5 +137,30 @@ export class MapComponent {
         if (markers.length < 2) return;
         const latlngs = markers.map((m) => [m.lat, m.lng] as [number, number]);
         this.animateRoutePolyline(latlngs);
+    }
+
+    toggleFullscreen(): void {
+        this.onFullscreenChange.emit();
+
+        setTimeout(() => {
+            this.map.invalidateSize();
+        }, 0);
+    }
+
+    openShareModal(): void {
+        const dialogRef = this.dialog.open(ShareModalComponent, {
+            width: '500px',
+            panelClass: 'share-dialog',
+            data: {
+                response: this.markersResponse(),
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                // Handle the save action here
+                console.log('Share data:', result);
+            }
+        });
     }
 }

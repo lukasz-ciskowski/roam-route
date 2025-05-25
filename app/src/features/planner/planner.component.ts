@@ -1,18 +1,25 @@
-import { Component, signal } from '@angular/core';
-import { ChatComponent } from '../chat/chat.component';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
+import { ChatComponent } from '../chat/chat.component';
 import type { MarkersResponse } from '../map/types';
 
 @Component({
     selector: 'planner-component',
     standalone: true,
+    imports: [CommonModule, MapComponent, ChatComponent],
     templateUrl: './planner.component.html',
-    imports: [ChatComponent, MapComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlannerComponent {
-    markersSuggestions = signal<MarkersResponse | null>(null);
+    markersResponse = signal<MarkersResponse | null>(null);
+    isFullscreen = signal(false);
 
-    updateMarkers(markers: MarkersResponse) {
-        this.markersSuggestions.set(markers);
+    onUpdateMarkersResponse(markers: MarkersResponse) {
+        this.markersResponse.set(markers);
+    }
+
+    onFullscreenChange() {
+        this.isFullscreen.set(!this.isFullscreen());
     }
 }

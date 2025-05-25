@@ -2,6 +2,7 @@ import { defineAction } from 'astro:actions';
 import { z as astroZ } from 'astro:schema';
 
 import { travelAssistantService } from '../services/travel-assistant.service';
+import { shareRouteService } from '../services/share-route.service';
 
 export const server = {
     fillInAssistantData: defineAction({
@@ -13,6 +14,47 @@ export const server = {
             return await travelAssistantService.fillInAssistantData({
                 questions: input.questions,
                 answers: input.answers,
+            });
+        },
+    }),
+    generateRouteDescription: defineAction({
+        input: astroZ.object({
+            city: astroZ.string(),
+            country: astroZ.string(),
+            places: astroZ.array(astroZ.string()),
+        }),
+        handler: async (input) => {
+            return await travelAssistantService.generateRouteDescription({
+                city: input.city,
+                country: input.country,
+                places: input.places,
+            });
+        },
+    }),
+    shareRoute: defineAction({
+        input: astroZ.object({
+            title: astroZ.string(),
+            description: astroZ.string(),
+            city: astroZ.string(),
+            country: astroZ.string(),
+            places: astroZ.array(
+                astroZ.object({
+                    name: astroZ.string(),
+                    lat: astroZ.number(),
+                    lng: astroZ.number(),
+                }),
+            ),
+            imageUrl: astroZ.string().url().optional(),
+        }),
+        handler: async (input, context) => {
+            const sessionCookie = context.cookies.get('__session')?.value;
+            if (!sessionCookie) {
+                throw new Error('Unauthorized');
+            }
+
+            return await shareRouteService.shareRoute({
+                ...input,
+                sessionCookie,
             });
         },
     }),
