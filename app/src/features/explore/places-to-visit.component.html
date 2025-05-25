@@ -1,16 +1,16 @@
 @if (initialData(); as route) {
-<mat-card>
+<mat-card class="!bg-white">
     <mat-card-header>
         <mat-card-title>Places to Visit</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <mat-list role="list">
+        <ul role="list" class="list-disc pl-5">
             @for (place of route.places; track place.name) {
-            <mat-list-item role="listitem">
-                <span matListItemTitle>{{ place.name }}</span>
-            </mat-list-item>
+            <li role="listitem" class="!h-fit">
+                <span>{{ place.name }}</span>
+            </li>
             }
-        </mat-list>
+        </ul>
     </mat-card-content>
 </mat-card>
 }

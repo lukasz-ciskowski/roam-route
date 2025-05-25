@@ -14,9 +14,12 @@ import type { MarkersResponse } from './types';
 })
 export class MapComponent {
     markersResponse = input<MarkersResponse>();
+    isInModal = input<boolean>(false);
 
     private map!: L.Map;
     private routePolyline: L.Polyline | null = null;
+
+    mapComponentId = computed(() => (this.isInModal() ? 'modalMapContainer' : 'mapContainer'));
 
     markers = computed(() => {
         const response = this.markersResponse();
@@ -28,13 +31,14 @@ export class MapComponent {
 
     constructor() {
         effect(() => {
+            if (!this.map) return;
             const response = this.markersResponse();
             if (!response) return;
 
             const markers =
                 response!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) || [];
-
             this.redefineMarkers(markers);
+
             setTimeout(() => {
                 this.map.invalidateSize();
                 this.centerMap(markers);
@@ -45,20 +49,14 @@ export class MapComponent {
         });
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this.initMap();
-
-        const resizeObserver = new ResizeObserver(() => {
-            this.map.invalidateSize();
-        });
-
-        const mapDiv = document.getElementById('mapContainer');
-        resizeObserver.observe(mapDiv!);
     }
 
     private initMap() {
         const baseMapURl = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-        this.map = L.map('mapContainer').setView([0, 0], 2);
+
+        this.map = L.map(this.mapComponentId()).setView([0, 0], 2);
         L.tileLayer(baseMapURl, {
             attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -67,6 +65,20 @@ export class MapComponent {
         }).addTo(this.map);
         this.map.attributionControl.setPrefix('');
         this.map.zoomControl.remove();
+
+        const response = this.markersResponse();
+        if (!response) return;
+        const markers =
+            response!.markers.map((marker) => L.marker([marker.lat, marker.lng]).bindPopup(marker.name)) || [];
+
+        this.redefineMarkers(markers);
+        const bounds = L.latLngBounds(markers.map((marker) => marker.getLatLng()));
+        this.map.fitBounds(bounds, {
+            padding: [10, 10],
+        });
+        setTimeout(() => {
+            this.drawRoutePolyline(response.markers);
+        }, 200);
     }
 
     private centerMap(markers: L.Marker[]) {

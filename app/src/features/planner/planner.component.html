@@ -1,20 +1,6 @@
-<div class="relative w-full h-full flex flex-col">
-    @if (markersResponse()) {
-    <div
-        [class]="
-            isFullscreen()
-                ? 'absolute inset-0 z-50 bg-white w-full h-full'
-                : 'relative w-full h-fit flex flex-col gap-4'
-        "
-    >
-        <planner-map
-            [markersResponse]="markersResponse()"
-            [isFullscreen]="isFullscreen()"
-            (onFullscreenChange)="onFullscreenChange()"
-        >
-        </planner-map>
-    </div>
-    }
-    <chat-component (onUpdateResponse)="onUpdateMarkersResponse($event)" class="flex-1 overflow-hidden">
-    </chat-component>
+@if (markersResponse()) {
+<div class="relative w-full h-fit flex flex-col gap-4">
+    <planner-map [markersResponse]="markersResponse()"></planner-map>
 </div>
+}
+<chat-component (onUpdateResponse)="onUpdateMarkersResponse($event)" class="flex-1 overflow-hidden"> </chat-component>

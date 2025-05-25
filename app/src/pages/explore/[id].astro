@@ -24,12 +24,15 @@ if (!route) {
             {/* @ts-ignore */}
             <RouteDetailsComponent client:visible initialData={route} />
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                {/* @ts-ignore */}
-                <PlacesToVisitComponent client:visible initialData={route} />
-                {/* @ts-ignore */}
-                <ExploreMapComponent client:only initialData={route} class="block absolute inset-0 z-50" />
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
+                <div class="md:col-span-1">
+                    {/* @ts-ignore */}
+                    <PlacesToVisitComponent client:visible initialData={route} />
+                </div>
+                <div class="md:col-span-2">
+                    {/* @ts-ignore */}
+                    <ExploreMapComponent client:only initialData={route} />
+                </div>
             </div>
         </div>
     </Authorized>
-</Layout>

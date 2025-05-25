@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShareModalComponent } from './share-modal.component';
+import { FullscreenMapDialogComponent } from '../../shared/components/fullscreen-map/fullscreen-map-dialog.component';
 import type { MarkersResponse } from '../map/types';
 import { MapComponent } from '../map/map.component';
 
@@ -32,13 +33,23 @@ import { MapComponent } from '../map/map.component';
 })
 export class PlannerMapComponent {
     markersResponse = input<MarkersResponse>();
-    isFullscreen = input(false);
-    onFullscreenChange = output<void>();
 
     constructor(private dialog: MatDialog) {}
 
-    toggleFullscreen(): void {
-        this.onFullscreenChange.emit();
+    openFullscreenMap(): void {
+        if (!this.markersResponse()) return;
+
+        this.dialog.open(FullscreenMapDialogComponent, {
+            width: '100%',
+            height: '100%',
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            panelClass: 'fullscreen-dialog',
+            data: {
+                markersResponse: this.markersResponse(),
+                isInModal: true,
+            },
+        });
     }
 
     openShareModal(): void {
