@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-2">
+            <h1 class="text-3xl font-bold">Explore Amazing Routes</h1>
+            <p class="text-gray-600">Discover travel routes created by other adventurers</p>
+        </div>
+
+        <mat-form-field class="w-full md:w-96">
+            <mat-label>Search routes</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Search by title, city, or country" />
+        </mat-form-field>
+
+        @if (isLoading()) {
+        <div class="flex justify-center items-center py-12">
+            <mat-spinner></mat-spinner>
+        </div>
+        } @else { @if (data().routes.length === 0) {
+        <div class="text-center py-12">
+            <p class="text-xl text-gray-600">No routes found</p>
+        </div>
+        } @else {
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            @for (route of data().routes; track route.id) {
+            <a [href]="'/route/' + route.id" class="block">
+                <app-route-card
+                    [icon]="'mode_of_travel'"
+                    [iconClass]="'!text-primary'"
+                    [title]="route.title"
+                    [description]="route.city + ', ' + route.country"
+                    [imageUrl]="route.imageUrl"
+                />
+            </a>
+            }
+        </div>
+
+        <mat-paginator
+            [length]="data().total"
+            [pageSize]="data().pageSize"
+            [pageIndex]="data().page"
+            (page)="handlePageChange($event)"
+            aria-label="Select page"
+        >
+        </mat-paginator>
+        } }
+    </div>
+</div>

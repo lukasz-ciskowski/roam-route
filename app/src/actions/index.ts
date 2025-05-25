@@ -3,6 +3,7 @@ import { z as astroZ } from 'astro:schema';
 
 import { travelAssistantService } from '../services/travel-assistant.service';
 import { shareRouteService } from '../services/share-route.service';
+import { exploreService } from '../services/explore.service';
 
 export const server = {
     fillInAssistantData: defineAction({
@@ -56,6 +57,15 @@ export const server = {
                 ...input,
                 sessionCookie,
             });
+        },
+    }),
+    getSharedRoutes: defineAction({
+        input: astroZ.object({
+            page: astroZ.number().min(1).default(1),
+            search: astroZ.string().optional(),
+        }),
+        handler: async ({ page, search }) => {
+            return await exploreService.getSharedRoutes(page, search);
         },
     }),
 };

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ExploreComponent } from '../features/explore/explore.component';
+import { exploreService } from '../services/explore.service';
+import Authorized from '../layouts/Authorized.layout.astro';
+
+const { routes, total, pageSize } = await exploreService.getSharedRoutes(1);
+
+const initialData = {
+    routes,
+    total,
+    pageSize,
+};
+---
+
+<Layout title="Explore Routes - RoamRoute">
+    <Authorized>
+        {/* @ts-ignore */}
+        <ExploreComponent client:visible routes={initialData.routes} initialData={initialData} />
+    </Authorized>
+</Layout>
