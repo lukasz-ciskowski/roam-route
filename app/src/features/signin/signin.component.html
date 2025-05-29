@@ -5,7 +5,7 @@
         </mat-card-header>
         <mat-card-content>
             @if (errorMessage()) {
-            <div class="text-red-500 mb-4 text-center">{{ errorMessage() }}</div>
+            <div class="text-red-500 mb-4 text-center" data-testid="signin-error">{{ errorMessage() }}</div>
             }
             <button mat-stroked-button class="w-full mb-4" (click)="signInWithGoogle()">
                 <img src="/google-icon.svg" alt="Google" class="w-6 h-6 mr-2 inline" />
@@ -19,7 +19,7 @@
             <form [formGroup]="signinForm" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" formControlName="email" required />
+                    <input matInput type="email" formControlName="email" required data-testid="email-input" />
                     @if (signinForm.get('email')?.hasError('required') && signinForm.get('email')?.touched) {
                     <mat-error>Email is required</mat-error>
                     } @if (signinForm.get('email')?.hasError('email')) {
@@ -28,14 +28,20 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" formControlName="password" required />
+                    <input matInput type="password" formControlName="password" required data-testid="password-input" />
                     @if (signinForm.get('password')?.hasError('required') && signinForm.get('password')?.touched) {
                     <mat-error>Password is required</mat-error>
                     } @if (signinForm.get('password')?.hasError('minlength')) {
                     <mat-error>Password must be at least 6 characters</mat-error>
                     }
                 </mat-form-field>
-                <button mat-raised-button color="primary" type="submit" [disabled]="signinForm.invalid || isLoading()">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="signinForm.invalid || isLoading()"
+                    data-testid="signin-button"
+                >
                     @if (isLoading()) { Signing in... } @else { Sign In }
                 </button>
             </form>

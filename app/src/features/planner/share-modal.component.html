@@ -9,14 +9,21 @@
     <form [formGroup]="form" class="flex flex-col gap-2">
         <mat-form-field appearance="outline" class="w-full">
             <mat-label>Title</mat-label>
-            <input matInput formControlName="title" placeholder="Enter title" />
+            <input data-testid="share-title-input" matInput formControlName="title" placeholder="Enter title" />
         </mat-form-field>
 
         <div class="relative">
             <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Description</mat-label>
-                <textarea matInput formControlName="description" placeholder="Enter description" rows="10"></textarea>
+                <textarea
+                    data-testid="share-description-input"
+                    matInput
+                    formControlName="description"
+                    placeholder="Enter description"
+                    rows="10"
+                ></textarea>
                 <button
+                    data-testid="generate-description-button"
                     mat-icon-button
                     type="button"
                     class="!absolute right-[5px] top-[5px]"
@@ -36,7 +43,12 @@
 
         <mat-form-field appearance="outline" class="w-full">
             <mat-label>Image URL (optional)</mat-label>
-            <input matInput formControlName="imageUrl" placeholder="https://example.com/image.jpg" />
+            <input
+                data-testid="share-image-url-input"
+                matInput
+                formControlName="imageUrl"
+                placeholder="https://example.com/image.jpg"
+            />
             <mat-error>Please enter a valid URL starting with http:// or https://</mat-error>
         </mat-form-field>
 
@@ -44,6 +56,7 @@
         <div class="relative border rounded-lg overflow-hidden">
             <img [src]="imageUrl()" alt="Preview" class="w-full h-48 object-cover" />
             <button
+                data-testid="remove-image-button"
                 mat-icon-button
                 class="!absolute !top-2 !right-2 !bg-white"
                 (click)="removeImage()"
@@ -53,12 +66,20 @@
             </button>
         </div>
         } @if (errorMessage()) {
-        <div class="text-red-500 text-sm">{{ errorMessage() }}</div>
+        <div data-testid="share-error-message" class="text-red-500 text-sm">{{ errorMessage() }}</div>
         }
 
         <div class="flex justify-end gap-2">
-            <button mat-button (click)="onCancel()" [disabled]="isSaving()">Cancel</button>
-            <button mat-raised-button color="primary" (click)="onSave()" [disabled]="form.invalid || isSaving()">
+            <button data-testid="share-cancel-button" mat-button (click)="onCancel()" [disabled]="isSaving()">
+                Cancel
+            </button>
+            <button
+                data-testid="share-save-button"
+                mat-raised-button
+                color="primary"
+                (click)="onSave()"
+                [disabled]="form.invalid || isSaving()"
+            >
                 @if (isSaving()) {
                 <mat-spinner diameter="20" class="mr-2"></mat-spinner>} @else { Save }
             </button>

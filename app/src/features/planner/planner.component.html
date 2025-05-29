@@ -1,6 +1,11 @@
 @if (markersResponse()) {
-<div class="relative w-full h-fit flex flex-col gap-4">
-    <planner-map [markersResponse]="markersResponse()"></planner-map>
+<div data-testid="planner-content" class="relative w-full h-fit flex flex-col gap-4">
+    <planner-map data-testid="planner-map-component" [markersResponse]="markersResponse()"></planner-map>
 </div>
 }
-<chat-component (onUpdateResponse)="onUpdateMarkersResponse($event)" class="flex-1 overflow-hidden"> </chat-component>
+<chat-component
+    data-testid="chat-component-instance"
+    (onUpdateResponse)="onUpdateMarkersResponse($event)"
+    class="flex-1 overflow-hidden"
+>
+</chat-component>

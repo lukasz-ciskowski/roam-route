@@ -1,0 +1,25 @@
+{
+    "name": "zippy-journey",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "cd app && npm run dev",
+        "test": "playwright test",
+        "test:ui": "playwright test --ui",
+        "test:debug": "playwright test --debug",
+        "test:headed": "playwright test --headed",
+        "test:codegen": "playwright codegen"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@playwright/test": "^1.52.0",
+        "@types/node": "^22.15.21",
+        "dotenv": "^16.5.0"
+    },
+    "dependencies": {
+        "firebase-admin": "^13.4.0"
+    }
+}

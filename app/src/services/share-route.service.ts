@@ -3,13 +3,20 @@ import { app } from '../app/firebase/server';
 import { getAuth } from 'firebase-admin/auth';
 import type { SharedRoute } from './explore.service';
 
-type ShareRouteRequest = Omit<SharedRoute, 'id' | 'createdAt' | 'createdBy'> & {
+type ShareRouteRequest = Omit<
+    SharedRoute,
+    'id' | 'createdAt' | 'createdBy' | 'titleLower' | 'countryLower' | 'cityLower'
+> & {
     sessionCookie: string;
 };
 
 export class ShareRouteService {
     private db = getFirestore(app);
     private auth = getAuth(app);
+
+    constructor() {
+        this.db.settings({ ignoreUndefinedProperties: true });
+    }
 
     async shareRoute({ title, description, country, city, places, sessionCookie, imageUrl }: ShareRouteRequest) {
         try {

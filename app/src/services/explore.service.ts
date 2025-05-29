@@ -1,4 +1,3 @@
-import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import {
     or,
     query,
@@ -12,6 +11,7 @@ import {
     updateDoc,
     doc,
     getDoc,
+    and,
 } from 'firebase/firestore';
 import { app } from '../app/firebase/client';
 
@@ -54,12 +54,9 @@ export class ExploreService {
                 baseQuery = query(
                     routesRef,
                     or(
-                        where('titleLower', '>=', searchLower),
-                        where('titleLower', '<=', endSearchLower),
-                        where('countryLower', '>=', searchLower),
-                        where('countryLower', '<=', endSearchLower),
-                        where('cityLower', '>=', searchLower),
-                        where('cityLower', '<=', endSearchLower),
+                        and(where('titleLower', '>=', searchLower), where('titleLower', '<', endSearchLower)),
+                        and(where('countryLower', '>=', searchLower), where('countryLower', '<', endSearchLower)),
+                        and(where('cityLower', '>=', searchLower), where('cityLower', '<', endSearchLower)),
                     ),
                     orderBy('createdAt', 'desc'),
                 );

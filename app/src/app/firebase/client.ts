@@ -1,13 +1,13 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyCzOvtk222uZjzJs37Vh9jbr9yDNvOMoZk',
-    authDomain: 'roam-route.firebaseapp.com',
-    projectId: 'roam-route',
-    storageBucket: 'roam-route.firebasestorage.app',
-    messagingSenderId: '700419793770',
-    appId: '1:700419793770:web:4163e9fda51ff1a5747b13',
-    measurementId: 'G-WT37NQRWLW',
+    apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
+    authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
+    measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
