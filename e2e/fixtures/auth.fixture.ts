@@ -38,10 +38,9 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
             await authPage.signIn(process.env.TEST_USER_EMAIL || '', process.env.TEST_USER_PASSWORD || '');
             await authPage.expectSuccessfulAuth();
 
-            const storageStateFile = './e2e/.auth/user.json';
-            await page.context().storageState({ path: storageStateFile });
+            await page.context().storageState({ path: fileName, indexedDB: true });
 
-            await use(storageStateFile);
+            await use(fileName);
 
             await context.close();
         },

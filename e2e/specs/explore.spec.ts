@@ -42,7 +42,7 @@ test.describe('Explore Page', () => {
         await explorePage.expectRouteItemsCount(1);
     });
 
-    test.afterAll(async () => {
-        await exploreTestService.cleanupSharedRoutes();
-    });
+    // test.afterAll(async () => {
+    //     await exploreTestService.cleanupSharedRoutes();
+    // });
 });

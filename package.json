@@ -20,6 +20,7 @@
         "dotenv": "^16.5.0"
     },
     "dependencies": {
-        "firebase-admin": "^13.4.0"
+        "firebase-admin": "^13.4.0",
+        "playwright-indexeddb": "^1.0.0"
     }
 }

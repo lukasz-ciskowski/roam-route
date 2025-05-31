@@ -10,7 +10,7 @@
     <span class="text-gray-500 text-sm">or</span>
     <div class="h-px bg-gray-300 flex-1"></div>
 </div>
-<form [formGroup]="signinForm" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
+<form [formGroup]="signinForm" class="flex flex-col gap-4" (ngSubmit)="onSubmit()" data-testid="signin-form">
     <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" required data-testid="email-input" />

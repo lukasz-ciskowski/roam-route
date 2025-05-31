@@ -4,6 +4,7 @@ export class AuthPage {
     constructor(private page: Page) {}
 
     private selectors = {
+        signInForm: '[data-testid="signin-form"]',
         emailInput: '[data-testid="email-input"]',
         passwordInput: '[data-testid="password-input"]',
         signInButton: '[data-testid="signin-button"]',
@@ -20,13 +21,6 @@ export class AuthPage {
         await this.page.fill(this.selectors.emailInput, email);
         await this.page.fill(this.selectors.passwordInput, password);
         await this.page.click(this.selectors.signInButton);
-    }
-
-    async signUp(email: string, password: string) {
-        await this.page.goto('/signup');
-        await this.page.fill(this.selectors.emailInput, email);
-        await this.page.fill(this.selectors.passwordInput, password);
-        await this.page.click(this.selectors.signUpButton);
     }
 
     async expectAuthError() {

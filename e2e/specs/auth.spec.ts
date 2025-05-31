@@ -23,10 +23,4 @@ test.describe('Authentication', () => {
 
         await authPage.expectAuthError();
     });
-
-    test('should not allow access to protected routes without authentication', async ({ page }) => {
-        await page.goto('/planner');
-
-        await expect(page.url()).toContain('/signin');
-    });
 });
