@@ -1,17 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, Output, EventEmitter } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import {
-    getAuth,
-    inMemoryPersistence,
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-} from 'firebase/auth';
-import { app } from '../../app/firebase/client';
+import { AuthClientService } from '../../services/auth-client.service';
 
 @Component({
     selector: 'app-signin',
@@ -20,6 +13,8 @@ import { app } from '../../app/firebase/client';
     templateUrl: './signin.component.html',
 })
 export class SigninComponent {
+    @Output() onAuthorized = new EventEmitter<boolean>();
+
     signinForm = new FormGroup({
         email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true }),
         password: new FormControl('', {
@@ -30,32 +25,18 @@ export class SigninComponent {
     isLoading = signal(false);
     errorMessage = signal<string | null>(null);
 
-    constructor() {}
-
-    private async handleAuthentication(idToken: string) {
-        const response = await fetch('/api/auth/signin', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${idToken}`,
-            },
-        });
-
-        if (response.redirected) {
-            window.location.assign(response.url);
-        }
-    }
+    constructor(private authService: AuthClientService) {}
 
     async signInWithGoogle() {
+        if (this.isLoading()) return;
+
         this.isLoading.set(true);
         this.errorMessage.set(null);
 
         try {
-            const auth = getAuth(app);
-            auth.setPersistence(inMemoryPersistence);
-            const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, provider);
-            const idToken = await result.user.getIdToken();
-            await this.handleAuthentication(idToken);
+            const idToken = await this.authService.signInWithGoogle();
+            await this.authService.handleAuthentication(idToken);
+            this.onAuthorized.emit(true);
         } catch (error) {
             this.errorMessage.set('Google sign-in failed. Please try again.');
         } finally {
@@ -64,7 +45,7 @@ export class SigninComponent {
     }
 
     async onSubmit() {
-        if (this.signinForm.invalid) {
+        if (this.signinForm.invalid || this.isLoading()) {
             return;
         }
 
@@ -72,16 +53,15 @@ export class SigninComponent {
         this.errorMessage.set(null);
 
         try {
-            const auth = getAuth(app);
-            auth.setPersistence(inMemoryPersistence);
             const { email, password } = this.signinForm.value;
             if (!email || !password) {
                 this.errorMessage.set('Email and password are required');
                 return;
             }
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const idToken = await userCredential.user.getIdToken();
-            await this.handleAuthentication(idToken);
+
+            const idToken = await this.authService.signInWithEmailAndPassword(email, password);
+            await this.authService.handleAuthentication(idToken);
+            this.onAuthorized.emit(true);
         } catch (error) {
             this.errorMessage.set('Invalid email or password');
         } finally {

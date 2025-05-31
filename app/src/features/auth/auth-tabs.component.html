@@ -1,0 +1,19 @@
+<div class="w-full">
+    <mat-tab-group
+        [(selectedIndex)]="activeTabIndex"
+        mat-stretch-tabs="false"
+        mat-align-tabs="center"
+        animationDuration="300ms"
+    >
+        <mat-tab label="Sign In">
+            <div class="p-4">
+                <app-signin (onAuthorized)="handleAuthorized($event)"></app-signin>
+            </div>
+        </mat-tab>
+        <mat-tab label="Sign Up">
+            <div class="p-4">
+                <app-signup (onAuthorized)="handleAuthorized($event)"></app-signup>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

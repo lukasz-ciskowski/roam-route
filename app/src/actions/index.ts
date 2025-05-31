@@ -4,6 +4,7 @@ import { z as astroZ } from 'astro:schema';
 import { travelAssistantService } from '../services/travel-assistant.service';
 import { shareRouteService } from '../services/share-route.service';
 import { exploreService } from '../services/explore.service';
+import { authService } from '../services/auth.service';
 
 export const server = {
     fillInAssistantData: defineAction({
@@ -50,6 +51,11 @@ export const server = {
         handler: async (input, context) => {
             const sessionCookie = context.cookies.get('__session')?.value;
             if (!sessionCookie) {
+                throw new Error('Unauthorized');
+            }
+
+            const isAuthorized = await authService.isAuthorized(sessionCookie);
+            if (!isAuthorized) {
                 throw new Error('Unauthorized');
             }
 

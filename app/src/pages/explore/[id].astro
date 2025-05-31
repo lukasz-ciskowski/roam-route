@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { RouteDetailsComponent } from '../../features/explore/route-details.component';
 import { PlacesToVisitComponent } from '../../features/explore/places-to-visit.component';
 import { exploreService } from '../../services/explore.service';
-import Authorized from '../../layouts/Authorized.layout.astro';
 import { ExploreMapComponent } from '../../features/explore/explore-map.component';
+import App from '../../layouts/App.layout.astro';
 
 const { id } = Astro.params;
 if (!id) {
@@ -19,7 +19,7 @@ if (!route) {
 ---
 
 <Layout title={`${route.city} | ${route.country} | RoamRoute`}>
-    <Authorized>
+    <App>
         <div class="container mx-auto px-4 py-8 relative">
             {/* @ts-ignore */}
             <RouteDetailsComponent client:visible initialData={route} />
@@ -35,4 +35,5 @@ if (!route) {
                 </div>
             </div>
         </div>
-    </Authorized>
+    </App>
+</Layout>

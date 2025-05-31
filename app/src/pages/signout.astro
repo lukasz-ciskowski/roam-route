@@ -1,0 +1,16 @@
+---
+
+const cookies = Astro.cookies;
+cookies.delete('__session', {
+    path: '/',
+});
+---
+
+<script>
+    import { auth } from "../app/firebase/client";
+
+    auth.signOut().then(() => {
+        window.location.href = '/';
+    })
+
+</script>
