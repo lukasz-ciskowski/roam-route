@@ -1,28 +1,51 @@
-# Application – RoamRoute
+# RoamRoute - AI-Powered Travel Route Planner
 
 ## Main Problem
 Planning a one-day trip to explore a new city can be overwhelming. Visitors often struggle with limited time, long distances between landmarks, and the challenge of organizing an efficient walking route that covers the most valuable spots without wasting time or energy.
 
-## Minimum Viable Product (MVP)
-RoamRoute will be an AI-powered travel assistant that simplifies trip planning by asking users a few key questions:
+## Solution
+RoamRoute is a web application that helps international tourists quickly generate optimized one-day sightseeing routes in new cities. Users answer a few questions through an AI chat interface, and the app creates a personalized walking tour, displaying it on an interactive map with shareable functionality.
 
-- "Which city are you visiting?"
-- "Will you be traveling mainly by foot?"
-- "How much time do you have available?"
-- "Where will you start your journey?"
-- "Do you need to return to your starting point?"
+## Core Features
 
-Based on the answers, the app will generate an optimized walking route that covers the most iconic monuments and attractions within the given timeframe.
-The route will be visualized on an interactive map, with markers highlighting each stop.
-Additionally, the app will provide an option to generate a shareable Google Maps link for easy navigation on the go.
-Users can choose to publish their generated routes, making them visible to other travelers in the 'explore' page. This creates a community-driven collection of verified and tested journeys that others can browse, evaluate, and use as inspiration for their own trips.
+### 1. AI-Powered Route Planning
+- Interactive chat interface that guides users through route generation
+- Questions about destination city, available time, and preferences
+- AI generates optimized routes with 5-10 attractions
+- Extensible conversation for adding specific requests (restaurants, attractions)
+
+### 2. Interactive Map Visualization
+- Leaflet-based maps with custom markers for each attraction
+- Animated route polylines showing the walking path
+- Fullscreen map view with zoom controls
+- Visual representation of the optimized route
+
+### 3. Route Sharing & Community
+- Save routes to personal account (requires authentication)
+- Share routes with the community
+- Public explore page to discover routes created by others
+- Search functionality by city, country, or title
+- Pagination for browsing large collections
+
+### 4. User Authentication
+- Firebase-based secure authentication
+- Google sign-in integration
+- Account management and data protection
+- Route ownership and sharing permissions
+
+## Target Users
+- International tourists visiting new cities
+- Travelers with limited time who want optimized sightseeing
+- Users seeking community-verified travel routes
+- People who prefer structured, efficient travel planning
+
+## Value Proposition
+RoamRoute eliminates the complexity of travel planning by leveraging AI to create personalized, time-optimized routes that maximize sightseeing value while minimizing travel inefficiencies.
 
 ## Future Enhancements
-Once the optimal route is generated, RoamRoute could offer personalized add-ons, including food or coffee break suggestions:
-
-- "When would you like to take a break?"
-- "Are you looking for coffee, lunch, or just a quick snack?"
-- "Do you have any preferences? (e.g., vegetarian, vegan, specific cuisines)"
-
-These stops will be intelligently integrated into the planned route, ensuring users have a smooth, enjoyable journey without unnecessary detours.
-
+- Food and coffee break integration
+- Multi-day route planning
+- Mobile app development
+- Integration with booking platforms
+- Offline map capabilities
+- Group travel planning features
