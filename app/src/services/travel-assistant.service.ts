@@ -1,4 +1,4 @@
-import { gemini15Flash, googleAI, gemini25ProExp0325 } from '@genkit-ai/googleai';
+import { gemini15Flash, googleAI, gemini25FlashPreview0417 } from '@genkit-ai/googleai';
 import { genkit } from 'genkit';
 import { z } from 'genkit';
 import fs from 'fs';
@@ -11,7 +11,7 @@ const ai = genkit({
             apiKey: import.meta.env.GOOGLE_GENAI_API_KEY,
         }),
     ],
-    model: gemini25ProExp0325,
+    model: gemini25FlashPreview0417,
     // model: gemini15Flash,
 });
 
@@ -58,6 +58,7 @@ export class TravelAssistantService {
             });
             return output;
         } catch (err) {
+            console.log('🚀 ~ TravelAssistantService ~ fillInAssistantData ~ err:', err);
             throw new Error('Internal error: unable to process travel assistant data');
         }
     }
