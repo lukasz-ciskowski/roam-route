@@ -11,8 +11,8 @@ const ai = genkit({
             apiKey: import.meta.env.GOOGLE_GENAI_API_KEY,
         }),
     ],
-    // model: gemini25ProExp0325,
-    model: gemini15Flash,
+    model: gemini25ProExp0325,
+    // model: gemini15Flash,
 });
 
 const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');
