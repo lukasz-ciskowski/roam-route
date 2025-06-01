@@ -27,9 +27,10 @@ export class ExplorePage {
     }
 
     async searchRoutes(searchTerm: string) {
-        await this.page.fill(this.selectors.searchInput, searchTerm);
-        // Wait for the search to complete - there will be a network request
         await this.page.waitForLoadState('networkidle');
+
+        await this.page.fill(this.selectors.searchInput, searchTerm);
+        await this.page.waitForResponse('**/_actions/getSharedRoutes/');
     }
 
     async expectRouteDetails() {

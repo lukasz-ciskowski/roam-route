@@ -7,6 +7,8 @@ import { resolve } from '@angular/compiler-cli';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import netlify from '@astrojs/netlify';
+
 const _dirname = typeof __dirname !== 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
@@ -19,6 +21,7 @@ export default defineConfig({
             },
         },
     },
+
     integrations: [
         analogjsangular({
             vite: {
@@ -26,5 +29,7 @@ export default defineConfig({
             },
         }),
     ],
+
     output: 'server',
+    adapter: netlify(),
 });

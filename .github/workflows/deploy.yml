@@ -1,0 +1,86 @@
+name: Deploy to Netlify
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy:
+        name: Deploy Application to Netlify
+        runs-on: ubuntu-latest
+        environment: prod
+
+        env:
+            # Firebase Configuration
+            FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+            FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+            FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+            FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+            FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+            FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+            FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+            FIREBASE_AUTH_CERT_URL: ${{ secrets.FIREBASE_AUTH_CERT_URL }}
+            FIREBASE_CLIENT_CERT_URL: ${{ secrets.FIREBASE_CLIENT_CERT_URL }}
+
+            # Public Firebase Configuration
+            PUBLIC_FIREBASE_API_KEY: ${{ secrets.PUBLIC_FIREBASE_API_KEY }}
+            PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }}
+            PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.PUBLIC_FIREBASE_PROJECT_ID }}
+            PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.PUBLIC_FIREBASE_STORAGE_BUCKET }}
+            PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+            PUBLIC_FIREBASE_APP_ID: ${{ secrets.PUBLIC_FIREBASE_APP_ID }}
+            PUBLIC_FIREBASE_MEASUREMENT_ID: ${{ secrets.PUBLIC_FIREBASE_MEASUREMENT_ID }}
+
+            # Google Genai Configuration
+            GOOGLE_GENAI_API_KEY: ${{ secrets.GOOGLE_GENAI_API_KEY }}
+
+            # Netlify Configuration
+            NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: latest
+
+            - name: Get pnpm store directory
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - name: Setup pnpm cache
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Install root dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Install app dependencies
+              working-directory: ./app
+              run: pnpm install --frozen-lockfile
+
+            - name: Build application
+              working-directory: ./app
+              run: pnpm run build
+
+            - name: Install Netlify CLI
+              run: pnpm add -g netlify-cli
+
+            - name: Deploy to Netlify
+              run: netlify deploy --prod --dir=./app/dist --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN
+
+            - name: Deployment Status
+              run: echo "🚀 Application deployed successfully to Netlify!"

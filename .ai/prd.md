@@ -2,127 +2,146 @@
 
 ## 1. Product Overview
 
-RoamRoute is a desktop web application designed to help international tourists plan one-day trips in new cities. The MVP enables users to quickly generate an optimized sightseeing route based on a few questions, displays the route on an interactive map, and allows users to save the route after logging in. The application uses Google Places API to select attractions and generates a Google Maps link for easy navigation.
+RoamRoute is a desktop web application designed to help international tourists plan one-day trips in new cities. The application enables users to quickly generate an optimized sightseeing route through AI conversation, displays the route on an interactive map, and allows users to save and share routes with the community after authentication.
 
 ## 2. User Problem
 
-Tourists visiting new cities often have limited time and face difficulties planning an efficient sightseeing route on their own. The main challenges are selecting the most interesting attractions, optimizing the route for time and distance, and the lack of tools for quickly and conveniently preparing a travel plan.
+Tourists visiting new cities often have limited time and face difficulties planning an efficient sightseeing route. The main challenges include:
+- Selecting the most interesting attractions within time constraints
+- Optimizing routes for time and walking distance
+- Lack of tools for quick and convenient travel planning
+- Finding verified routes from other travelers
 
 ## 3. Functional Requirements
 
-1. When a user enters the website and reaches the chat screen, they are welcomed by the AI chat, which immediately starts the conversation.
-2. The AI chat initially asks the following questions:
-   - What is your travel destination?
-   - How much time do you want to spend sightseeing?
+### Core Route Generation
+1. AI chat interface welcomes users and guides them through route planning
+2. The AI asks essential questions:
+   - Travel destination (city)
+   - Available sightseeing time
+   - Confirmation of details before generation
+3. AI generates optimized routes with 5 initial attractions
+4. Extended chat allows users to request additional locations (up to 3 more)
+5. Route optimization considers walking distances and time efficiency
+6. Interactive map displays route with markers and animated polylines
 
-   **Chat Extension:**
-   - After the AI suggests 5 places to visit based on the initial answers, the chat remains open for further conversation.
-   - The user can provide extra context or requests (e.g., add a vegan restaurant, specific type of attraction, etc.).
-   - The AI can ask clarifying questions if needed before suggesting additional locations.
-   - The AI can add up to 3 more locations (for a total of 10 markers).
-   - After each new suggestion, the AI summarizes all locations added so far and asks if the user wants to add more or proceed.
+### User Authentication & Route Management
+7. Firebase-based authentication with Google sign-in
+8. Users can save generated routes to their account
+9. Route sharing functionality for community contributions
+10. Users can publish routes to make them publicly visible
 
-3. Generate an optimized sightseeing route based on user input (city, available time, starting point, preferences, mode of travel).
-4. Display the route on an interactive map with attraction markers.
-5. Provide a Google Maps link with the generated route.
-6. Allow saving the route for logged-in users (login via Firebase).
-7. Limit to one generated route per user per day.
-8. Additional text field for user preferences regarding attractions.
-9. English language support.
-10. Store user email address for login and route saving purposes.
-11. Allow users to publish their generated routes to make them publicly visible.
-12. Provide an 'explore' page where users can browse and view published routes from other travelers.
-13. No route editing, export, ratings, statistics, notifications, or user support in the MVP.
+### Community Features
+11. Explore page displays all published routes
+12. Search functionality by title, city, or country
+13. Pagination for browsing large route collections
+14. Individual route detail pages with maps and information
+
+### Technical Features
+15. Responsive design optimized for desktop
+16. Real-time map updates with Leaflet integration
+17. Route description generation using AI
+18. Secure data storage and user privacy protection
 
 ## 4. Product Boundaries
 
-- The application is available only on desktop in the MVP.
-- No mobile device support at this stage.
-- No editing of generated routes.
-- No export of routes to files (PDF, CSV) or sharing outside Google Maps.
-- No multi-language support (English only).
-- No push notifications, user statistics, route ratings, or technical support in the MVP.
-- No integration with other services (TripAdvisor, Yelp) in the MVP.
-- Color palette and UI style will be determined at a later stage.
-- No accessibility (WCAG) support at this stage (to be considered in the future).
-- The minimum set of supported cities/regions will be defined before launch.
+### Current Limitations
+- Desktop-only support (no mobile optimization)
+- No route editing after generation
+- No export functionality (PDF, files)
+- English language only
+- No multi-day route planning
+- No integration with booking platforms
+- No offline capabilities
+
+### Future Considerations
+- Mobile application development
+- Multi-language support
+- Route editing capabilities
+- Integration with travel booking services
+- Accessibility improvements (WCAG compliance)
 
 ## 5. User Stories
 
-### US-001: Generate a route without logging in
-- Title: Generate a route as an anonymous user
-- Description: As an anonymous user, I want to generate a sightseeing route based on my answers to a few questions so I can quickly plan my trip.
-- Acceptance Criteria:
-  - The user can generate a route without logging in.
-  - The user answers questions: city, available time, starting point, preferences, mode of travel.
-  - The route is displayed on an interactive map.
-  - The user receives a Google Maps link with the route.
-  - The user can generate only one route per day.
+### US-001: Generate route without authentication
+**Title:** Generate a route as an anonymous user
+**Description:** As an anonymous user, I want to generate a sightseeing route based on AI conversation so I can quickly plan my trip.
+**Acceptance Criteria:**
+- User can generate routes without signing in
+- AI guides through destination, time, and preferences questions
+- Route displays on interactive map with markers
+- User can extend conversation to add more attractions
 
-### US-002: Save a route after logging in
-- Title: Save a route as a logged-in user
-- Description: As a logged-in user, I want to save the generated route so I can return to it in the future.
-- Acceptance Criteria:
-  - The user must log in via Firebase to save a route.
-  - After logging in, the user can save the route to their account.
-  - Saved routes are available after logging in again.
-  - The user can delete saved routes.
+### US-002: Save and manage routes
+**Title:** Save routes after authentication
+**Description:** As a logged-in user, I want to save generated routes so I can access them later.
+**Acceptance Criteria:**
+- User must authenticate via Firebase to save routes
+- Saved routes are accessible in user account
+- User can manage their saved routes
 
-### US-003: Limit the number of routes
-- Title: Limit the number of routes generated per day
-- Description: As a user, I want to know how many routes I can generate per day so I don't exceed the application's limits.
-- Acceptance Criteria:
-  - The user (anonymous or logged-in) can generate only one route per day.
-  - After exceeding the limit, an appropriate message is displayed.
+### US-003: Share routes with community
+**Title:** Publish routes for community
+**Description:** As a user, I want to share my routes with others so they can benefit from my travel planning.
+**Acceptance Criteria:**
+- Users can choose to publish their routes
+- Published routes appear on explore page
+- Route includes title, description, and creator information
 
-### US-004: Attraction preferences
-- Title: Add preferences for attractions
-- Description: As a user, I want to provide additional preferences regarding attractions so the route is better tailored to my interests.
-- Acceptance Criteria:
-  - The route generation form includes a text field for preferences.
-  - Preferences are considered when selecting attractions.
+### US-004: Explore community routes
+**Title:** Browse routes created by others
+**Description:** As a user, I want to explore routes created by other travelers to find inspiration and verified travel plans.
+**Acceptance Criteria:**
+- Public explore page shows all published routes
+- Search functionality by location or title
+- Individual route detail pages with full information
+- No authentication required for browsing
 
-### US-005: Secure login and account management
-- Title: Secure login and user account management
-- Description: As a user, I want to securely log in to the application and manage my account so I can be sure my data is protected.
-- Acceptance Criteria:
-  - Login and registration are handled via Firebase.
-  - Only the user's email address is stored.
-  - The user can delete their account and associated data.
-  - Access to saved routes requires logging in.
-
-### US-006: Receive a Google Maps link
-- Title: Share the route via Google Maps
-- Description: As a user, I want to receive a Google Maps link with my route so I can easily navigate while sightseeing.
-- Acceptance Criteria:
-  - After generating a route, the user receives a Google Maps link.
-  - The link includes all selected points.
-
-### US-007: Manage AI costs
-- Title: Limit route generation costs
-- Description: As a product owner, I want to limit the cost of AI queries so the budget is not exceeded.
-- Acceptance Criteria:
-  - The system blocks route generation after exceeding the monthly cost limit ($2).
-  - The user receives a message about exceeding the limit.
-
-### US-008: Publish and explore routes
-- Title: Share routes with the community
-- Description: As a user, I want to publish my generated routes and explore routes created by others to find inspiration and verified travel plans.
-- Acceptance Criteria:
-  - Users can choose to publish their generated routes
-  - Published routes are visible on the 'explore' page
-  - The explore page shows basic route information (city, duration, number of stops)
-  - Users can browse and view published routes without logging in
-  - Published routes include the original route creator's username
-  - Users can unpublish their own routes
+### US-005: Interactive map experience
+**Title:** Visualize routes on interactive maps
+**Description:** As a user, I want to see my route on an interactive map so I can understand the walking path and attractions.
+**Acceptance Criteria:**
+- Map displays all attraction markers
+- Animated route polylines show walking path
+- Fullscreen map view available
+- Zoom and pan controls for detailed viewing
 
 ## 6. Success Metrics
 
-1. Number of routes generated daily and monthly.
-2. Number of routes saved by logged-in users.
-3. Number of routes published and shared with the community.
-4. Number of unique users using the application.
-5. Average number of route views in the explore page.
-6. Keeping AI model query costs below $2 per month.
-7. Application stability and availability (no critical errors).
-8. Positive feedback from early users (e.g., satisfaction survey).
+### User Engagement
+1. Number of routes generated daily and monthly
+2. User retention and return visits
+3. Route sharing and publication rates
+4. Community engagement on explore page
+
+### Technical Performance
+5. Application availability and stability
+6. AI response time and accuracy
+7. Map loading and interaction performance
+8. Search functionality effectiveness
+
+### Business Metrics
+9. User acquisition and growth rates
+10. Community-generated content volume
+11. User satisfaction and feedback scores
+12. Cost efficiency of AI operations
+
+## 7. Technical Requirements
+
+### Frontend Architecture
+- Astro 5 with Angular 19 island architecture
+- TypeScript for type safety
+- Tailwind CSS with Angular Material components
+- Responsive design patterns
+
+### Backend Services
+- Firebase Authentication and Firestore
+- Google Gemini AI for conversation and route generation
+- Leaflet for map visualization
+- Astro actions for server-side operations
+
+### Quality Assurance
+- Playwright end-to-end testing
+- Component-level testing
+- Error handling and user feedback
+- Performance monitoring and optimization

@@ -41,8 +41,4 @@ test.describe('Explore Page', () => {
         // Assert - should only show Paris route
         await explorePage.expectRouteItemsCount(1);
     });
-
-    // test.afterAll(async () => {
-    //     await exploreTestService.cleanupSharedRoutes();
-    // });
 });
