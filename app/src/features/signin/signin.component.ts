@@ -25,11 +25,7 @@ export class SigninComponent {
     isLoading = signal(false);
     errorMessage = signal<string | null>(null);
 
-    constructor(private authService: AuthClientService) {
-        this.signinForm.valueChanges.subscribe(() => {
-            console.log('Form value changed:', this.signinForm.value);
-        });
-    }
+    constructor(private authService: AuthClientService) {}
 
     async signInWithGoogle() {
         if (this.isLoading()) return;

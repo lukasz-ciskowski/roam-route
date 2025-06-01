@@ -29,7 +29,7 @@ export class PlannerPage {
     }
 
     async sendChatMessage(message: string) {
-        await this.page.waitForTimeout(500); // Wait for the UI to be ready
+        await this.page.waitForResponse('**/_actions/fillInAssistantData/');
         await this.page.fill(this.selectors.chatInput, message);
         await this.page.click(this.selectors.chatSendButton);
     }
@@ -55,17 +55,8 @@ export class PlannerPage {
         await this.page.waitForResponse('**/_actions/shareRoute/');
     }
 
-    async expectChatComponentVisible() {
-        await this.page.waitForLoadState('networkidle');
-        await expect(this.page.locator(this.selectors.chatComponent)).toBeVisible();
-    }
-
     async expectAssistantResponse(expectedMessage: string, timeout = 10000) {
         await expect(this.page.locator(this.selectors.chatMessagesArea)).toContainText(expectedMessage, { timeout });
-    }
-
-    async expectAssistantResponseToBeVisible() {
-        await this.page.waitForResponse('**/_actions/fillInAssistantData/');
     }
 
     async expectPlannerContentVisible() {

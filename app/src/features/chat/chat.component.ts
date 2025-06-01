@@ -84,6 +84,7 @@ export class ChatComponent {
                 answers,
             })
             .then((response) => {
+                console.log('🚀 ~ ChatComponent ~ .then ~ response:', response.data);
                 this.isLoading.set(false);
                 if (response && response.data) {
                     const { nextQuestion, readyToShowMarkers, markersSuggestions, city, country } = response.data;
