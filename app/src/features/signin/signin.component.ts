@@ -1,4 +1,4 @@
-import { Component, signal, Output, EventEmitter } from '@angular/core';
+import { Component, signal, Output, EventEmitter, effect } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,11 @@ export class SigninComponent {
     isLoading = signal(false);
     errorMessage = signal<string | null>(null);
 
-    constructor(private authService: AuthClientService) {}
+    constructor(private authService: AuthClientService) {
+        this.signinForm.valueChanges.subscribe(() => {
+            console.log('Form value changed:', this.signinForm.value);
+        });
+    }
 
     async signInWithGoogle() {
         if (this.isLoading()) return;

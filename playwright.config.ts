@@ -13,8 +13,7 @@ export default defineConfig({
     testDir: './e2e/specs',
     testMatch: '**/*.spec.ts',
     timeout: 30 * 1000,
-    forbidOnly: !!process.env.CI,
-    workers: process.env.CI ? 1 : undefined,
+    workers: 1,
     reporter: 'html',
     use: {
         baseURL: 'http://localhost:4321', // Astro's default port

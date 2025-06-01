@@ -17,7 +17,8 @@ export class AuthPage {
     }
 
     async signIn(email: string, password: string) {
-        await this.page.waitForTimeout(1000); // Wait for the page to load and material input fields to be ready
+        await this.page.waitForLoadState('networkidle');
+
         await this.page.fill(this.selectors.emailInput, email);
         await this.page.fill(this.selectors.passwordInput, password);
         await this.page.click(this.selectors.signInButton);

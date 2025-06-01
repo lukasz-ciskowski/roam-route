@@ -118,6 +118,12 @@ app/
 
 ## Deployment & Infrastructure
 
+### Hosting & Platform
+- **Netlify** - Primary deployment platform for Astro application
+- **Automatic Deployments** - Git-based continuous deployment from repository
+- **Edge Functions** - Server-side functionality at the edge for optimal performance
+- **Environment Variables** - Secure configuration management for production
+
 ### Build Configuration
 - **Static Site Generation** - Pre-built pages for optimal performance
 - **Asset Optimization** - Automatic image and code optimization

@@ -9,3 +9,7 @@ node_modules
 .env
 .env.e2e
 .auth
+.firebase
+
+# Local Netlify folder
+.netlify

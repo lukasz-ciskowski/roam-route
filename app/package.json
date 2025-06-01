@@ -23,6 +23,8 @@
         "@angular/platform-browser": "^19.2.8",
         "@angular/platform-browser-dynamic": "^19.2.8",
         "@angular/platform-server": "^19.2.8",
+        "@astrojs/netlify": "^6.3.4",
+        "@astrojs/node": "^9.2.2",
         "@fontsource/poppins": "^5.2.5",
         "@genkit-ai/googleai": "^1.7.0",
         "@tailwindcss/vite": "^4.1.4",

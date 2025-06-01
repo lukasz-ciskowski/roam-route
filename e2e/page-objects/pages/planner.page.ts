@@ -56,6 +56,7 @@ export class PlannerPage {
     }
 
     async expectChatComponentVisible() {
+        await this.page.waitForLoadState('networkidle');
         await expect(this.page.locator(this.selectors.chatComponent)).toBeVisible();
     }
 
@@ -64,7 +65,6 @@ export class PlannerPage {
     }
 
     async expectAssistantResponseToBeVisible() {
-        // await expect(this.page.locator(this.selectors.assistantMessage)).toBeVisible({ timeout: 30000 });
         await this.page.waitForResponse('**/_actions/fillInAssistantData/');
     }
 

@@ -27,7 +27,6 @@ export class AuthClientService {
 
     private initAuthState() {
         onAuthStateChanged(auth, (user) => {
-            console.log('🚀 ~ AuthClientService ~ onAuthStateChanged ~ user:', user);
             this.currentUser.set(user);
             this.isAuthenticated.set(!!user);
             this.isLoading.set(false);
