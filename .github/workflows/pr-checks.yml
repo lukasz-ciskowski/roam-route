@@ -33,6 +33,7 @@ jobs:
 
             # Google Genai Configuration
             GOOGLE_GENAI_API_KEY: ${{ secrets.GOOGLE_GENAI_API_KEY }}
+            GOOGLE_GENAI_MODEL: ${{ secrets.GOOGLE_GENAI_MODEL }}
 
             # Test User Configuration
             TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}

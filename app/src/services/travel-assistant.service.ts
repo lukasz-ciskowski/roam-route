@@ -1,4 +1,4 @@
-import { gemini15Flash, googleAI, gemini25FlashPreview0417 } from '@genkit-ai/googleai';
+import { googleAI, gemini, type GeminiVersionString } from '@genkit-ai/googleai';
 import { genkit } from 'genkit';
 import { z } from 'genkit';
 import fs from 'fs';
@@ -11,8 +11,7 @@ const ai = genkit({
             apiKey: import.meta.env.GOOGLE_GENAI_API_KEY,
         }),
     ],
-    model: gemini25FlashPreview0417,
-    // model: gemini15Flash,
+    model: gemini(import.meta.env.GOOGLE_GENAI_MODEL as GeminiVersionString),
 });
 
 const travelAssistantPrompt = fs.readFileSync(path.join(__dirname, 'src/contexts/travel-assist.context.txt'), 'utf-8');

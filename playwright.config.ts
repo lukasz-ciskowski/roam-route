@@ -50,6 +50,7 @@ export default defineConfig({
             PUBLIC_FIREBASE_APP_ID: process.env.PUBLIC_FIREBASE_APP_ID!,
             PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.PUBLIC_FIREBASE_MEASUREMENT_ID || '',
             GOOGLE_GENAI_API_KEY: process.env.GOOGLE_GENAI_API_KEY || '',
+            GOOGLE_GENAI_MODEL: process.env.GOOGLE_GENAI_MODEL,
         },
     },
 });
